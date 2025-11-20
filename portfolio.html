@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drumil's Work - Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .portfolio-header {
+      text-align: center;
+      padding: 5em 2em 3em;
+      background: var(--section-bg);
+    }
+
+    .portfolio-header h1 {
+      font-size: 3em;
+      margin-bottom: 0.5em;
+    }
+
+    .portfolio-header p {
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: auto;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2em;
+      padding: 3em;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .portfolio-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .portfolio-card-image {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, var(--accent-color), #0071e3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3em;
+      overflow: hidden;
+    }
+
+    .portfolio-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .portfolio-card-content {
+      padding: 2em;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .portfolio-card h3 {
+      font-size: 1.5em;
+      margin: 0 0 0.5em 0;
+    }
+
+    .portfolio-card .category {
+      font-size: 0.85em;
+      color: var(--accent-color);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5em;
+    }
+
+    .portfolio-card p {
+      margin: 0 0 1em 0;
+      opacity: 0.85;
+      flex-grow: 1;
+    }
+
+    .portfolio-card-tags {
+      display: flex;
+      gap: 0.5em;
+      flex-wrap: wrap;
+      margin-bottom: 1.5em;
+    }
+
+    .tag {
+      background: var(--section-bg);
+      padding: 0.4em 0.8em;
+      border-radius: 20px;
+      font-size: 0.8em;
+      color: var(--text-color);
+      opacity: 0.7;
+    }
+
+    .portfolio-card-link {
+      display: inline-block;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      margin-top: auto;
+    }
+
+    .portfolio-card-link:hover {
+      color: #005bb5;
+      text-decoration: underline;
+    }
+
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      flex-wrap: wrap;
+      margin-bottom: 3em;
+      padding: 2em 1em 0;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .filter-btn {
+      padding: 0.6em 1.5em;
+      background: var(--card-bg);
+      color: var(--text-color);
+      border: 2px solid var(--card-bg);
+      border-radius: 50px;
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.75em 1.5em;
+      margin: 2em 3em 0;
+      background: var(--card-bg);
+      color: var(--text-color);
+      text-decoration: none;
+      border-radius: 50px;
+      transition: background 0.3s ease;
+      font-weight: 500;
+    }
+
+    .back-button:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header class="apple-style-header">
+    <nav>
+      <div class="logo">DRUMIL PATEL's Portfolio</div>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-icon">🌙</button>
+  </header>
+
+  <div class="portfolio-header">
+    <h1>My Work</h1>
+    <p>A showcase of projects, designs, and creative endeavors that bring ideas to life</p>
+  </div>
+
+  <div class="filter-buttons">
+    <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+    <button class="filter-btn" onclick="filterProjects('web-design')">Web Design</button>
+    <button class="filter-btn" onclick="filterProjects('web-dev')">Web Development</button>
+    <button class="filter-btn" onclick="filterProjects('app-dev')">App Development</button>
+    <button class="filter-btn" onclick="filterProjects('creative')">Creative</button>
+  </div>
+
+  <div class="portfolio-grid" id="portfolioGrid">
+    <!-- Web Design Projects -->
+    <div class="portfolio-card" data-category="web-design">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Modern Landing Page">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Web Design</span>
+        <h3>Modern Landing Page</h3>
+        <p>A sleek, minimalist landing page featuring smooth animations and an intuitive user interface inspired by modern design principles.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">UI Design</span>
+          <span class="tag">Responsive</span>
+          <span class="tag">Animations</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Web Development Projects -->
+    <div class="portfolio-card" data-category="web-dev">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Interactive Web App">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Web Development</span>
+        <h3>Interactive Web App</h3>
+        <p>A fully functional web application with dynamic content, real-time data updates, and a seamless user experience powered by modern frameworks.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Interactive</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Web Development Projects -->
+    <div class="portfolio-card" data-category="web-dev">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="E-Commerce Platform">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Web Development</span>
+        <h3>E-Commerce Platform</h3>
+        <p>A complete e-commerce solution with product catalog, shopping cart, payment integration, and admin dashboard for managing inventory.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">Full Stack</span>
+          <span class="tag">Payment API</span>
+          <span class="tag">Database</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- App Development Projects -->
+    <div class="portfolio-card" data-category="app-dev">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Mobile App">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">App Development</span>
+        <h3>Mobile App - Task Manager</h3>
+        <p>A responsive mobile application for task management with features like reminders, categories, and cloud synchronization across devices.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">React Native</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Mobile</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Creative Projects -->
+    <div class="portfolio-card" data-category="creative">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Brand Identity Design">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Creative</span>
+        <h3>Brand Identity Design</h3>
+        <p>Complete brand identity package including logo design, color palette, typography guidelines, and brand guidelines documentation.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">Branding</span>
+          <span class="tag">Logo Design</span>
+          <span class="tag">Visual Identity</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Creative Projects -->
+    <div class="portfolio-card" data-category="creative">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Video Editing - Promo">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Creative</span>
+        <h3>Professional Video Editing</h3>
+        <p>High-quality promotional video featuring smooth transitions, color grading, motion graphics, and engaging storytelling techniques.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">Video Editing</span>
+          <span class="tag">Motion Graphics</span>
+          <span class="tag">Color Grading</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Web Design Projects -->
+    <div class="portfolio-card" data-category="web-design">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Dashboard Design">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Web Design</span>
+        <h3>Admin Dashboard Design</h3>
+        <p>A comprehensive dashboard design with data visualization, charts, and widgets for analytics and user management with a clean interface.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">UI/UX</span>
+          <span class="tag">Dashboard</span>
+          <span class="tag">Data Viz</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Web Development Projects -->
+    <div class="portfolio-card" data-category="web-dev">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="Blog Platform">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Web Development</span>
+        <h3>Blog Platform</h3>
+        <p>A content management system for blogging with rich text editor, categories, comments section, and SEO optimization built-in.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">CMS</span>
+          <span class="tag">Backend</span>
+          <span class="tag">SEO</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+
+    <!-- Creative Projects -->
+    <div class="portfolio-card" data-category="creative">
+      <div class="portfolio-card-image">
+        <img src="https://via.placeholder.com/400x250" alt="3D Rendering">
+      </div>
+      <div class="portfolio-card-content">
+        <span class="category">Creative</span>
+        <h3>3D Product Rendering</h3>
+        <p>Professional 3D renderings of products with photorealistic textures, lighting, and materials for marketing and visualization purposes.</p>
+        <div class="portfolio-card-tags">
+          <span class="tag">3D Design</span>
+          <span class="tag">Rendering</span>
+          <span class="tag">Product Viz</span>
+        </div>
+        <a href="#" class="portfolio-card-link">View Project →</a>
+      </div>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-button">← Back to Home</a>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      body.classList.toggle('dark-mode');
+      icon.textContent = body.classList.contains('dark-mode') ? '🌞' : '🌙';
+      localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    }
+
+    function filterProjects(category) {
+      const cards = document.querySelectorAll('.portfolio-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      // Update active button
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Filter cards
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          setTimeout(() => card.style.opacity = '1', 10);
+        } else {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+        }
+      });
+    }
+
+    // Restore theme on page load
+    window.addEventListener('load', () => {
+      const theme = localStorage.getItem('theme') || 'light';
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      
+      if (theme === 'dark') {
+        body.classList.add('dark-mode');
+        icon.textContent = '🌞';
+      } else {
+        body.classList.remove('dark-mode');
+        icon.textContent = '🌙';
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

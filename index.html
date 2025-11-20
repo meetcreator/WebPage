@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drumil's Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+
+  
+</head>
+<body>
+  <header class="apple-style-header">
+    <nav>
+      <div class="logo">DRUMIL PATEL's Portfolio</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button onclick="toggleTheme()" class="theme-toggle" id="theme-icon">🌙</button>
+
+
+  </header>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      body.classList.toggle('dark-mode');
+      icon.textContent = body.classList.contains('dark-mode') ? '🌞' : '🌙';
+    }
+  </script>
+  
+  
+  <section class="hero">
+    <h1>Hello, I'm Drumil</h1>
+    <p>I create beautiful ideas into functional reality.</p>
+    <a href="portfolio.html" class="cta-button">View My Work</a>
+  </section>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      Yep, this entire website — from the code to the design, videos, photos, and even the "oops" moments — was made by me! No templates, no copy-paste magic. Just a lot of late nights, coffee, and Ctrl+Z. Hope you enjoy scrolling through it as much as I enjoyed building it!
+    </p>
+      </section>
+
+  <section id="services" class="section">
+    <h2>What I Provide</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Web Design</h3>
+        <p>Pixel-perfect UI inspired by your ideas.</p>
+      </div>
+      <div class="card">
+        <h3>Web Development</h3>
+        <p>Fast, accessible and modern websites.</p>
+      </div>
+      <div class="card">
+        <h3>App Development</h3>
+        <p>Fast,Responsive with amazing UI</p>
+      </div>
+      <div class="card">
+        <h3>Creative Skills</h3>
+        <p>Invites · Photo/Video Editing · Ads · 3D Design & Rendering</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="project-gallery">
+      <div class="project-item">
+        <img src="https://via.placeholder.com/400x250" alt="Project 1">
+        <h3>Modern Landing Page</h3>
+      </div>
+      <div class="project-item">
+        <img src="https://via.placeholder.com/400x250" alt="Project 2">
+        <h3>Interactive Web App</h3>
+      </div>
+    </div>
+  </section>
+ 
+  
+  <section class="section" id="next-project">
+    <h2>What Should I Build Next?</h2>
+    <iframe src="https://forms.gle/efoxhX48sztF54Yn6" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0">
+      Loading…
+    </iframe>
+  </section>
+  
+  
+  
+  <section class="section" id="certificates">
+    <h2>Certificates</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Full Stack Web Development</h3>
+        <p>Issued by Coursera · Jan 2024</p>
+        <a href="#" target="_blank">View Certificate</a>
+      </div>
+      <div class="card">
+        <h3>Python for Everybody</h3>
+        <p>Issued by edX · Dec 2023</p>
+        <a href="#" target="_blank">View Certificate</a>
+      </div>
+      <!-- Add more certificates as needed -->
+    </div>
+  </section>
+  
+
+  <section class="section" id="contact">
+    <h2>Let’s Connect!</h2>
+    <p style="text-align: center; max-width: 600px; margin: auto;">
+      Want to work together, collaborate on something cool, or just geek out over code and caffeine? I’m just a message away.
+    </p>
+    <div style="text-align: center; margin-top: 2em;">
+      <p><strong>📞 Phone/Whatsapp:</strong> <a href="tel:+919909045665">+919909045665</a></p>
+      <p><strong>📧 Email:</strong> <a href="mailto:404notfoundany@gmail.com">404notfoundany@gmail.com</a></p>
+    </div>
+  </section>
+  
+
+  <footer>
+    <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+<script>
+    // Toggle theme already here...
+  
+    // Handle Next Project Idea Form
+    document.getElementById('next-project-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const status = document.getElementById('submission-status');
+      status.textContent = "Thanks! Your idea has been submitted 🙌";
+      this.reset();
+  
+      // You can integrate Firebase, EmailJS, or backend here for real submissions
+    });
+  </script>
+
+<script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+  
+    // Firebase config
+    const firebaseConfig = {
+    apiKey: "AIzaSyC99k6CHrqXhy9NE_6OdFPr2doOnTKdP8s",
+    authDomain: "drumil-portfolio-a0c13.firebaseapp.com",
+    projectId: "drumil-portfolio-a0c13",
+    storageBucket: "drumil-portfolio-a0c13.firebasestorage.app",
+    messagingSenderId: "117405699521",
+    appId: "1:117405699521:web:3a67c6b3a186300bb1f340",
+    measurementId: "G-R9H0PQ7798"
+    };
+
+  
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+  
+    // Handle form submission
+    const form = document.getElementById("next-project-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const idea = form.idea.value;
+  
+      try {
+        await addDoc(collection(db, "projectIdeas"), { idea, timestamp: new Date() });
+        document.getElementById("submission-status").textContent = "Thanks! Your idea has been submitted 🎉";
+      } catch (err) {
+        console.error("Error writing to Firebase", err);
+        document.getElementById("submission-status").textContent = "Error saving idea 😢";
+      }
+  
+      form.reset();
+    });
+  </script>
+  
+  
+
+  
+</body>
+</html>
