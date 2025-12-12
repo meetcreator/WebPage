@@ -1,193 +1,215 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drumil's Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drumil Patel — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-
-  
 </head>
-<body>
-  <header class="apple-style-header">
-    <nav>
-      <div class="logo">DRUMIL PATEL's Portfolio</div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-    <button onclick="toggleTheme()" class="theme-toggle" id="theme-icon">🌙</button>
+<body class="dark-mode">
+  <!-- PREMIUM HEADER -->
+  <header class="premium-header" role="banner">
+    <div class="nav-container container">
+      <div class="logo"><a href="index.html">DRUMIL PATEL</a></div>
 
+      <nav class="nav-desktop" role="navigation" aria-label="Main">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <a href="index.html">About</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="#about">Overview</a></li>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#experience">Experience</a></li>
+            </ul>
+          </li>
 
+          <li class="dropdown">
+            <a href="service.html">Services</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="#services">All Services</a></li>
+              <li><a href="#next-project">Suggest Ideas</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="portfolio.html">Portfolio</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="portfolio.html#Overview">Overview</a></li>
+              <li><a href="portfolio.html#WebDev">Web Dev</a></li>
+              <li><a href="portfolio.html#Quant">Quant</a></li>
+              <li><a href="portfolio.html#Auto">Automation/AI</a></li>
+            </ul>
+          </li>
+
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="client/index.html" class="file-share" aria-label="Open file sharing">File Sharing</a>
+        <button id="theme-icon" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    
   </header>
-
-  <script>
-    function toggleTheme() {
-      const body = document.body;
-      const icon = document.getElementById('theme-icon');
-      body.classList.toggle('dark-mode');
-      icon.textContent = body.classList.contains('dark-mode') ? '🌞' : '🌙';
-    }
-  </script>
   
-  
-  <section class="hero">
-    <h1>Hello, I'm Drumil</h1>
-    <p>I create beautiful ideas into functional reality.</p>
-    <a href="portfolio.html" class="cta-button">View My Work</a>
-  </section>
 
-  <section id="about" class="section">
-    <h2>About Me</h2>
-    <p>
-      Yep, this entire website — from the code to the design, videos, photos, and even the "oops" moments — was made by me! No templates, no copy-paste magic. Just a lot of late nights, coffee, and Ctrl+Z. Hope you enjoy scrolling through it as much as I enjoyed building it!
-    </p>
-      </section>
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="heroSection" style="background-image: url('timncocard.png');">
+      <div class="hero-inner container">
+        <p class="lead" style="margin-top: 500px;">I design & build clean, fast, accessible web apps and interfaces. I like minimal design, strong UX, and fast code.</p>
+        <div class="hero-ctas">
+          <a class="btn primary" href="portfolio.html">View My Work</a>
+          <a class="btn ghost" href="#contact">Let's Talk</a>
+        </div>
+      </div>
+    </section>
 
-  <section id="services" class="section">
-    <h2>What I Provide</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Web Design</h3>
-        <p>Pixel-perfect UI inspired by your ideas.</p>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About Me</h2>
+        <p class="muted">I build web apps, automations, and data tools — from prototypes to production. I like fast frontends, pragmatic design, and clean engineering.</p>
+        <div class="cards">
+          <article class="card">
+            <h3>Who I Am</h3>
+            <p>Computer Science student — passionate about full-stack, ML, and automation. Strong in Java, Python, and modern JS.</p>
+          </article>
+          <article class="card">
+            <h3>What I Do</h3>
+            <p>Design pixel-ready UI, implement robust web apps, and automate workflows. I also build portfolio projects to learn and demonstrate skills.</p>
+          </article>
+        </div>
       </div>
-      <div class="card">
-        <h3>Web Development</h3>
-        <p>Fast, accessible and modern websites.</p>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="cards">
+          <div class="card"><h3>Web Design</h3><p>UI/UX, landing pages, responsive systems.</p></div>
+          <div class="card"><h3>Web Development</h3><p>React / Node / REST / Firebase.</p></div>
+          <div class="card"><h3>Automation</h3><p>Scripts, bots, data pipelines.</p></div>
+          <div class="card"><h3>Consulting</h3><p>Project planning, architecture reviews.</p></div>
+        </div>
       </div>
-      <div class="card">
-        <h3>App Development</h3>
-        <p>Fast,Responsive with amazing UI</p>
+    </section>
+
+    <!-- PROJECTS PREVIEW -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2>Selected Projects</h2>
+        <div class="project-gallery">
+          <div class="project-item card" tabindex="0">
+            <img src="https://via.placeholder.com/640x360" alt="Modern landing example">
+            <h3>Modern Landing Page</h3>
+            <p class="muted">Landing + animations + performance optimised.</p>
+          </div>
+          <div class="project-item card" tabindex="0">
+            <img src="https://via.placeholder.com/640x360" alt="Web app example">
+            <h3>Interactive Web App</h3>
+            <p class="muted">Real-time UI, PWAs and offline capabilites.</p>
+          </div>
+        </div>
+        <div class="text-center" style="margin-top:1.25rem;">
+          <a class="btn ghost" href="portfolio.html">Browse Full Portfolio</a>
+        </div>
       </div>
-      <div class="card">
-        <h3>Creative Skills</h3>
-        <p>Invites · Photo/Video Editing · Ads · 3D Design & Rendering</p>
+    </section>
+
+    <!-- NEXT PROJECT (iframe) -->
+    <section id="next-project" class="section">
+      <div class="container">
+        <h2>Suggest Ideas</h2>
+        <p class="muted">Tell me what to build next — anonymous quick form.</p>
+        <div class="frame-wrap">
+          <iframe src="https://forms.gle/efoxhX48sztF54Yn6" title="Suggest Ideas" loading="lazy"></iframe>
+        </div>
       </div>
+    </section>
+
+
+    <!-- CERTIFICATES -->
+    <section id="certificates" class="section">
+      <div class="container">
+        <h2>Certificates</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Full Stack Web Development</h3>
+            <p class="muted">Coursera · Jan 2024</p>
+          </div>
+          <div class="card">
+            <h3>Python for Everybody</h3>
+            <p class="muted">edX · Dec 2023</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p class="muted">Want to build something together? Reach out.</p>
+
+        <form id="contactForm" class="form">
+          <input name="name" placeholder="Your name" required />
+          <input name="email" type="email" placeholder="Email" required />
+          <textarea name="message" placeholder="Message" required></textarea>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <button type="submit" class="btn primary">Send Message</button>
+            <div id="submission-status" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="section footer">
+    <div class="container text-center">
+      <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
     </div>
-  </section>
-
-
-  <section id="projects" class="section">
-    <h2>Projects</h2>
-    <div class="project-gallery">
-      <div class="project-item">
-        <img src="https://via.placeholder.com/400x250" alt="Project 1">
-        <h3>Modern Landing Page</h3>
-      </div>
-      <div class="project-item">
-        <img src="https://via.placeholder.com/400x250" alt="Project 2">
-        <h3>Interactive Web App</h3>
-      </div>
-    </div>
-  </section>
- 
-  
-  <section class="section" id="next-project">
-    <h2>What Should I Build Next?</h2>
-    <iframe src="https://forms.gle/efoxhX48sztF54Yn6" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0">
-      Loading…
-    </iframe>
-  </section>
-  
-  
-  
-  <section class="section" id="certificates">
-    <h2>Certificates</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Full Stack Web Development</h3>
-        <p>Issued by Coursera · Jan 2024</p>
-        <a href="#" target="_blank">View Certificate</a>
-      </div>
-      <div class="card">
-        <h3>Python for Everybody</h3>
-        <p>Issued by edX · Dec 2023</p>
-        <a href="#" target="_blank">View Certificate</a>
-      </div>
-      <!-- Add more certificates as needed -->
-    </div>
-  </section>
-  
-
-  <section class="section" id="contact">
-    <h2>Let’s Connect!</h2>
-    <p style="text-align: center; max-width: 600px; margin: auto;">
-      Want to work together, collaborate on something cool, or just geek out over code and caffeine? I’m just a message away.
-    </p>
-    <div style="text-align: center; margin-top: 2em;">
-      <p><strong>📞 Phone/Whatsapp:</strong> <a href="tel:+919909045665">+919909045665</a></p>
-      <p><strong>📧 Email:</strong> <a href="mailto:404notfoundany@gmail.com">404notfoundany@gmail.com</a></p>
-    </div>
-  </section>
-  
-
-  <footer>
-    <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
   </footer>
 
+  <!-- SCRIPTS -->
+  <script src="portfolio.js" type="module"></script>
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-
-<script>
-    // Toggle theme already here...
-  
-    // Handle Next Project Idea Form
-    document.getElementById('next-project-form')?.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const status = document.getElementById('submission-status');
-      status.textContent = "Thanks! Your idea has been submitted 🙌";
-      this.reset();
-  
-      // You can integrate Firebase, EmailJS, or backend here for real submissions
-    });
-  </script>
-
-<script type="module">
-    // Import Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
-  
-    // Firebase config
-    const firebaseConfig = {
-    apiKey: "AIzaSyC99k6CHrqXhy9NE_6OdFPr2doOnTKdP8s",
-    authDomain: "drumil-portfolio-a0c13.firebaseapp.com",
-    projectId: "drumil-portfolio-a0c13",
-    storageBucket: "drumil-portfolio-a0c13.firebasestorage.app",
-    messagingSenderId: "117405699521",
-    appId: "1:117405699521:web:3a67c6b3a186300bb1f340",
-    measurementId: "G-R9H0PQ7798"
-    };
-
-  
-    // Init Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-  
-    // Handle form submission
-    const form = document.getElementById("next-project-form");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const idea = form.idea.value;
-  
-      try {
-        await addDoc(collection(db, "projectIdeas"), { idea, timestamp: new Date() });
-        document.getElementById("submission-status").textContent = "Thanks! Your idea has been submitted 🎉";
-      } catch (err) {
-        console.error("Error writing to Firebase", err);
-        document.getElementById("submission-status").textContent = "Error saving idea 😢";
+    // Theme toggle - initialize dark mode by default
+    const themeBtn = document.getElementById("theme-icon");
+    
+    function initTheme() {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light") {
+        document.body.classList.remove("dark-mode");
+        themeBtn.textContent = "🌙";
+      } else {
+        document.body.classList.add("dark-mode");
+        themeBtn.textContent = "☀️";
       }
-  
-      form.reset();
+    }
+    
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+    
+    // Toggle on click
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark-mode");
+      themeBtn.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
     });
   </script>
-  
-  
-
-  
 </body>
 </html>

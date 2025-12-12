@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Split Reality Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-black text-white overflow-hidden">
+    <div class="split-container flex h-screen w-full">
+        <!-- Static Content Side -->
+        <div class="static-side w-full md:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                Enter the <span class="text-white">Quantum</span> Realm
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
+                Experience the future of digital interaction with our split-reality interface. The left side grounds you in clarity while the right transports you to another dimension.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button class="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full font-medium hover:scale-105 transition-transform duration-300">
+                    Explore Dimensions
+                </button>
+                <button class="px-8 py-3 border border-gray-600 rounded-full font-medium hover:bg-gray-900 transition-colors duration-300">
+                    Learn More
+                </button>
+            </div>
+            <div class="mt-12 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                    <i data-feather="zap" class="text-white"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-400">Powered by</p>
+                    <p class="font-medium">Quantum UI Engine</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated Side -->
+        <div class="animated-side w-full md:w-1/2 relative overflow-hidden">
+            <canvas id="quantumCanvas" class="absolute inset-0 w-full h-full"></canvas>
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="text-center p-8">
+                    <h2 class="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-300 to-purple-400 bg-clip-text text-transparent">Interactive Reality</h2>
+                    <p class="text-gray-300 max-w-md">Move your cursor to influence the quantum field</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nearby File Share (WebRTC P2P)</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">NearbyShare — P2P</div>
+    <div class="room-controls">
+      <input id="roomInput" placeholder="Enter room name (e.g. party-room)" />
+      <button id="joinBtn">Join Room</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel" id="localPanel">
+      <h2>Your Device</h2>
+      <div id="me">Not connected</div>
+      <label class="file-wrap">
+        <input type="file" id="fileInput" />
+        <span>Select file to send</span>
+      </label>
+      <div id="fileMeta"></div>
+    </section>
+
+    <section class="panel" id="peersPanel">
+      <h2>Nearby Devices</h2>
+      <ul id="peersList"></ul>
+    </section>
+
+    <section class="panel" id="transferPanel">
+      <h2>Transfer</h2>
+      <div id="transferStatus">No active transfer</div>
+      <progress id="transferProgress" value="0" max="100"></progress>
+      <div id="receivedFiles"></div>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
