@@ -1,9 +1,11 @@
-// Simple signaling server using Express + Socket.IO
+// WebRTC signaling server with automatic network discovery
+// All devices on the same network automatically discover each other
 // Run: npm install && npm start
 
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
+const os = require('os');
 
 const app = express();
 const server = http.createServer(app);
@@ -11,27 +13,49 @@ const io = new Server(server, {
   cors: { origin: "*", methods: ["GET","POST"] }
 });
 
+// Get local IP address
+function getLocalIP() {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      // Skip internal and non-IPv4 addresses
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return 'localhost';
+}
+
+const localIP = getLocalIP();
+
 // Basic health endpoint
 app.get('/', (req, res) => res.send('WebRTC signaling server running'));
 
-// Rooms model: socket joins rooms by name
-io.on('connection', socket => {
-  console.log('conn:', socket.id);
+// All connected devices (local network discovery)
+const connectedDevices = new Map(); // socket.id -> device info
 
-  // Join room
-  socket.on('join-room', (room, meta) => {
-    socket.join(room);
-    socket.data.meta = meta || {};
-    // Inform others
-    const peers = Array.from(io.sockets.adapter.rooms.get(room) || [])
-      .filter(id => id !== socket.id)
-      .map(id => ({ id, meta: io.sockets.sockets.get(id)?.data?.meta || {} }));
-    // Give new client the list of peers (id + meta)
-    socket.emit('peers', peers);
-    // Broadcast that this client joined
-    socket.to(room).emit('peer-joined', { id: socket.id, meta: socket.data.meta });
-    socket.data.room = room;
-    console.log(`${socket.id} joined ${room}`);
+io.on('connection', socket => {
+  console.log('Device connected:', socket.id);
+
+  // Register device on network
+  socket.on('register-device', (deviceInfo) => {
+    socket.data.deviceInfo = deviceInfo || {};
+    socket.data.deviceInfo.id = socket.id;
+    socket.data.deviceInfo.timestamp = Date.now();
+    
+    connectedDevices.set(socket.id, socket.data.deviceInfo);
+    
+    // Broadcast updated device list to all clients
+    io.emit('devices-update', Array.from(connectedDevices.values()));
+    console.log(`Registered: ${deviceInfo?.name || socket.id} on network`);
+  });
+
+  // Get current device list
+  socket.on('get-devices', () => {
+    const devices = Array.from(connectedDevices.values())
+      .filter(d => d.id !== socket.id); // exclude self
+    socket.emit('devices-update', devices);
   });
 
   // Relay SDP / ICE for signaling
@@ -43,13 +67,16 @@ io.on('connection', socket => {
 
   // Leaving / disconnect
   socket.on('disconnect', () => {
-    const room = socket.data.room;
-    if (room) {
-      socket.to(room).emit('peer-left', { id: socket.id });
-      console.log(`${socket.id} left ${room}`);
-    }
+    connectedDevices.delete(socket.id);
+    // Broadcast updated device list
+    io.emit('devices-update', Array.from(connectedDevices.values())
+      .filter(d => d.id !== socket.id));
+    console.log(`Device disconnected: ${socket.id}`);
   });
 });
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Signaling server listening on :${PORT}`));
+server.listen(PORT, () => {
+  console.log(`\n✓ Signaling server listening on http://${localIP}:${PORT}`);
+  console.log(`✓ Devices on ${localIP} network will auto-discover each other\n`);
+});

@@ -3,40 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nearby File Share (WebRTC P2P)</title>
+  <title>File Sharing - Drumil Patel</title>
+  <link rel="stylesheet" href="../style.css" />
   <link rel="stylesheet" href="app.css" />
 </head>
-<body>
-  <header class="topbar">
-    <div class="brand">NearbyShare — P2P</div>
-    <div class="room-controls">
-      <input id="roomInput" placeholder="Enter room name (e.g. party-room)" />
-      <button id="joinBtn">Join Room</button>
+<body class="dark-mode">
+  <!-- PREMIUM HEADER (from main portfolio) -->
+  <header class="premium-header" role="banner">
+    <div class="nav-container container">
+      <div class="logo"><a href="../index.html">DRUMIL PATEL</a></div>
+
+      <nav class="nav-desktop" role="navigation" aria-label="Main">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <a href="../index.html">About</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="../index.html#about">Overview</a></li>
+              <li><a href="../index.html#skills">Skills</a></li>
+              <li><a href="../index.html#experience">Experience</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="../service.html">Services</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="../service.html#services">All Services</a></li>
+              <li><a href="../service.html#next-project">Suggest Ideas</a></li>
+              <li><a href="../service.html#contact">Contact</a></li>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="../portfolio.html">Portfolio</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="../portfolio.html#Overview">Overview</a></li>
+              <li><a href="../portfolio.html#WebDev">Web Dev</a></li>
+              <li><a href="../portfolio.html#Quant">Quant</a></li>
+              <li><a href="../portfolio.html#Auto">Automation/AI</a></li>
+            </ul>
+          </li>
+
+          <li><a href="../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <span class="file-share-label">File Sharing</span>
+        <button id="theme-icon" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="panel" id="localPanel">
-      <h2>Your Device</h2>
-      <div id="me">Not connected</div>
-      <label class="file-wrap">
-        <input type="file" id="fileInput" />
-        <span>Select file to send</span>
-      </label>
-      <div id="fileMeta"></div>
+  <main class="file-sharing-container">
+    <section class="file-sharing-header">
+      <h1>🔗 File Sharing</h1>
+      <p id="me" class="connection-status">Connecting to network...</p>
     </section>
 
-    <section class="panel" id="peersPanel">
-      <h2>Nearby Devices</h2>
-      <ul id="peersList"></ul>
-    </section>
+    <div class="container">
+      <section class="panel" id="devicesPanel">
+        <h2>🔍 Nearby Devices</h2>
+        <p class="panel-hint">All devices on your network appear here automatically</p>
+        <ul id="peersList"></ul>
+      </section>
 
-    <section class="panel" id="transferPanel">
-      <h2>Transfer</h2>
-      <div id="transferStatus">No active transfer</div>
-      <progress id="transferProgress" value="0" max="100"></progress>
-      <div id="receivedFiles"></div>
-    </section>
+      <section class="panel" id="filePanel">
+        <h2>📁 Select File to Share</h2>
+        <label class="file-wrap">
+          <input type="file" id="fileInput" />
+          <span>Choose a file to send</span>
+        </label>
+        <div id="fileMeta"></div>
+      </section>
+
+      <section class="panel" id="transferPanel">
+        <h2>📊 Transfer Status</h2>
+        <div id="transferStatus">Initializing...</div>
+        <progress id="transferProgress" value="0" max="100"></progress>
+        <div id="receivedFiles" class="received-section"></div>
+      </section>
+    </div>
   </main>
 
   <script type="module" src="app.js"></script>

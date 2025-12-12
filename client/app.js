@@ -1,5 +1,5 @@
-// Minimal WebRTC file transfer using Socket.IO signaling
-// Instructions: edit SIGNALING_SERVER to point to your server (http://localhost:3000)
+// WebRTC file transfer with automatic network discovery
+// Devices on the same network automatically discover each other
 
 const SIGNALING_SERVER = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
   ? 'http://localhost:3000'
@@ -7,10 +7,14 @@ const SIGNALING_SERVER = (location.hostname === 'localhost' || location.hostname
 
 import { io as ClientIO } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
 
-const socket = ClientIO(SIGNALING_SERVER, { autoConnect: false });
+const socket = ClientIO(SIGNALING_SERVER, { 
+  autoConnect: false,
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: 5
+});
 
-const joinBtn = document.getElementById('joinBtn');
-const roomInput = document.getElementById('roomInput');
 const meEl = document.getElementById('me');
 const peersList = document.getElementById('peersList');
 const fileInput = document.getElementById('fileInput');
@@ -20,7 +24,7 @@ const transferProgress = document.getElementById('transferProgress');
 const receivedFiles = document.getElementById('receivedFiles');
 
 let localId = null;
-let currentRoom = null;
+let deviceName = `Device ${Math.random().toString(36).substr(2, 9)}`;
 let pc = null;              // RTCPeerConnection for active transfer
 let dc = null;              // DataChannel for active transfer
 let incomingBuffer = [];    // store incoming chunks
@@ -28,119 +32,128 @@ let incomingSize = 0;
 let fileToSend = null;
 const CHUNK_SIZE = 16 * 1024; // 16KB chunks
 
-// UI handlers
-joinBtn.addEventListener('click', () => {
-  const room = (roomInput.value || '').trim();
-  if (!room) return alert('Enter a room name (anything).');
-  joinRoom(room);
+// Auto-connect on page load
+window.addEventListener('load', () => {
+  connectToNetwork();
 });
 
-// join room & connect socket
-function joinRoom(room) {
+// Connect to network and discover nearby devices
+function connectToNetwork() {
   socket.connect();
+  
   socket.on('connect', () => {
     localId = socket.id;
-    meEl.textContent = `You: ${localId}`;
-    socket.emit('join-room', room, { name: `Device ${localId.slice(0,6)}` });
-    currentRoom = room;
-    transferStatus.textContent = `Joined room: ${room}`;
+    meEl.textContent = `✓ Connected as: ${deviceName}`;
+    
+    // Register this device on the network
+    socket.emit('register-device', {
+      name: deviceName,
+      id: localId,
+      timestamp: Date.now()
+    });
+    
+    // Request current device list
+    socket.emit('get-devices');
+    
+    transferStatus.textContent = 'Connected to network - discovering nearby devices...';
   });
 
-  socket.on('peers', peers => {
-    renderPeers(peers);
+  // Handle device list updates
+  socket.on('devices-update', (devices) => {
+    renderDevices(devices);
   });
 
-  socket.on('peer-joined', peer => {
-    addPeerToList(peer);
-  });
-
-  socket.on('peer-left', ({ id }) => {
-    removePeerFromList(id);
-  });
-
-  // relay signaling messages
+  // Handle incoming connection offers
   socket.on('signal', async ({ from, payload }) => {
     if (!payload) return;
     if (payload.type === 'offer') {
-      // incoming offer -> create peer, set remote desc, create answer
       await handleIncomingOffer(from, payload);
     } else if (payload.type === 'answer') {
       await pc.setRemoteDescription(payload);
     } else if (payload.candidate) {
-      try { await pc.addIceCandidate(payload); } catch(e){ console.warn('addIceCandidate err',e);}
+      try { await pc.addIceCandidate(payload); } catch(e){ console.warn('ICE candidate error', e); }
     }
   });
 
   socket.on('connect_error', err => {
-    console.error('signal connect error', err);
-    alert('Unable to connect to signaling server.');
+    console.error('Connection error:', err);
+    meEl.textContent = '❌ Connection Failed';
+    transferStatus.textContent = `Cannot connect to signaling server at ${SIGNALING_SERVER}. Make sure the server is running.`;
   });
 
-  // handle disconnect cleanup
   socket.on('disconnect', () => {
-    currentRoom = null;
     meEl.textContent = 'Not connected';
     peersList.innerHTML = '';
+    transferStatus.textContent = 'Disconnected from network';
   });
 }
 
-// Render initial list
-function renderPeers(peers) {
+// Render list of nearby devices
+function renderDevices(devices) {
   peersList.innerHTML = '';
-  peers.forEach(addPeerToList);
+  
+  if (devices.length === 0) {
+    const emptyMsg = document.createElement('li');
+    emptyMsg.className = 'empty-message';
+    emptyMsg.textContent = 'No other devices on this network yet.';
+    peersList.appendChild(emptyMsg);
+    transferStatus.textContent = 'Connected - waiting for other devices...';
+    return;
+  }
+  
+  transferStatus.textContent = `Found ${devices.length} device${devices.length !== 1 ? 's' : ''} on network`;
+  devices.forEach(addDeviceToList);
 }
 
-function addPeerToList(peer) {
+function addDeviceToList(device) {
   const li = document.createElement('li');
   li.className = 'peer-item';
-  li.id = `peer-${peer.id}`;
-  const name = (peer.meta && peer.meta.name) ? peer.meta.name : peer.id;
-  li.innerHTML = `<span title="${peer.id}">${name}</span>`;
+  li.id = `device-${device.id}`;
+  
+  const name = device.name || `Device ${device.id.slice(0, 6)}`;
+  li.innerHTML = `<span title="${device.id}">📱 ${name}</span>`;
+  
   const btn = document.createElement('button');
-  btn.textContent = 'Send';
+  btn.textContent = 'Send File';
   btn.addEventListener('click', () => {
-    if (!fileToSend) return alert('Pick a file first.');
-    startConnectionAsCaller(peer.id);
+    if (!fileToSend) return alert('Please select a file first.');
+    startConnectionAsCaller(device.id, name);
   });
+  
   li.appendChild(btn);
   peersList.appendChild(li);
 }
 
-function removePeerFromList(id) {
-  const el = document.getElementById(`peer-${id}`);
-  if (el) el.remove();
-}
-
-// file selection
+// File selection
 fileInput.addEventListener('change', e => {
   const f = e.target.files && e.target.files[0];
-  if (!f) { fileToSend = null; fileMeta.textContent = ''; return; }
+  if (!f) { 
+    fileToSend = null; 
+    fileMeta.textContent = ''; 
+    return; 
+  }
   fileToSend = f;
-  fileMeta.textContent = `${f.name} — ${Math.round(f.size/1024)} KB`;
+  fileMeta.textContent = `📄 ${f.name} — ${Math.round(f.size/1024)} KB`;
 });
 
-// --------- WebRTC / Signaling flow (caller) ----------
-async function startConnectionAsCaller(remoteId) {
+// --------- WebRTC Connection Flow (Caller) ----------
+async function startConnectionAsCaller(remoteId, remoteName) {
   setupPeerConnection(remoteId, true);
-  // create datachannel
+  
   dc = pc.createDataChannel('file');
   setupDataChannel(dc, true);
 
   const offer = await pc.createOffer();
   await pc.setLocalDescription(offer);
-  // send offer via signaling
   socket.emit('signal', { to: remoteId, payload: pc.localDescription });
-  transferStatus.textContent = `Offering to ${remoteId}...`;
+  
+  transferStatus.textContent = `Sending file to ${remoteName}...`;
 }
 
-// --------- Handle incoming offer (callee) ----------
+// --------- Handle Incoming Offer (Callee) ----------
 async function handleIncomingOffer(fromId, offer) {
-  // Ask user to accept
-  const accept = confirm(`Device ${fromId} wants to send a file. Accept?`);
-  if (!accept) {
-    // Optionally respond with reject signal (not implemented), or just ignore
-    return;
-  }
+  const accept = confirm(`Device wants to send you a file. Accept?`);
+  if (!accept) return;
 
   setupPeerConnection(fromId, false);
 
@@ -153,20 +166,19 @@ async function handleIncomingOffer(fromId, offer) {
   const answer = await pc.createAnswer();
   await pc.setLocalDescription(answer);
   socket.emit('signal', { to: fromId, payload: pc.localDescription });
-  transferStatus.textContent = `Connected; receiving from ${fromId}...`;
+  
+  transferStatus.textContent = 'Connected - receiving file...';
 }
 
-// common peer setup
+// --------- Common Peer Connection Setup ----------
 function setupPeerConnection(remoteId, isCaller) {
   pc = new RTCPeerConnection({
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
-      // For production add TURN server here:
-      // { urls: 'turn:YOUR_TURN_SERVER', username: 'user', credential: 'pass' }
+      { urls: 'stun:stun1.l.google.com:19302' }
     ]
   });
 
-  // ICE -> send to remote
   pc.onicecandidate = (e) => {
     if (e.candidate) {
       socket.emit('signal', { to: remoteId, payload: e.candidate });
@@ -174,128 +186,151 @@ function setupPeerConnection(remoteId, isCaller) {
   };
 
   pc.onconnectionstatechange = () => {
-    console.log('pc state', pc.connectionState);
+    console.log('Connection state:', pc.connectionState);
     if (pc.connectionState === 'disconnected' || pc.connectionState === 'failed' || pc.connectionState === 'closed') {
       cleanupConnection();
     }
   };
 }
 
-// DataChannel logic
+// --------- DataChannel Logic ----------
 function setupDataChannel(channel, isSender) {
   channel.binaryType = 'arraybuffer';
+  
   channel.onopen = () => {
-    console.log('dc open', channel);
-    transferStatus.textContent = isSender ? 'Data channel open — sending...' : 'Data channel open — ready to receive';
-    if (isSender) sendFileOverDataChannel(channel, fileToSend);
+    console.log('DataChannel opened');
+    if (isSender) {
+      transferStatus.textContent = 'Sending file...';
+      sendFileOverDataChannel(channel, fileToSend);
+    } else {
+      transferStatus.textContent = 'Ready to receive file...';
+    }
   };
 
   channel.onclose = () => {
-    transferStatus.textContent = 'Data channel closed';
+    transferStatus.textContent = 'Transfer complete';
   };
 
   channel.onmessage = (ev) => {
-    // Receiving controls and file chunks
     if (typeof ev.data === 'string') {
-      // control messages are JSON strings
+      // Control messages (metadata)
       try {
         const msg = JSON.parse(ev.data);
         if (msg.type === 'meta') {
-          // incoming file metadata
           incomingBuffer = [];
           incomingSize = 0;
-          transferStatus.textContent = `Receiving: ${msg.name} (${Math.round(msg.size/1024)} KB)`;
+          transferStatus.textContent = `Receiving: ${msg.name}`;
           transferProgress.value = 0;
           transferProgress.max = msg.size;
         }
       } catch (e) {
-        console.warn('non-json text', ev.data);
+        console.warn('Parse error:', e);
       }
       return;
     }
 
-    // binary chunk
+    // Binary file chunk
     const chunk = ev.data;
     incomingBuffer.push(chunk);
     incomingSize += chunk.byteLength;
     transferProgress.value = Math.min(incomingSize, transferProgress.max);
+    
     const percent = Math.round((incomingSize / transferProgress.max) * 100);
     transferStatus.textContent = `Receiving... ${percent}%`;
 
-    // If received all
     if (incomingSize >= transferProgress.max) {
-      const received = new Blob(incomingBuffer);
-      const url = URL.createObjectURL(received);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `received-${Date.now()}`;
-      a.textContent = `Download received file (${Math.round(incomingSize/1024)} KB)`;
-      receivedFiles.appendChild(a);
-      transferStatus.textContent = 'Receive complete';
-      // cleanup
-      incomingBuffer = [];
-      incomingSize = 0;
-      transferProgress.value = 0;
+      completeFileTransfer();
     }
   };
 }
 
-// sending file: send metadata first, then chunked binary
+// Complete file transfer and prepare download
+function completeFileTransfer() {
+  const received = new Blob(incomingBuffer);
+  const url = URL.createObjectURL(received);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `received-${Date.now()}`;
+  a.textContent = `📥 Download (${Math.round(incomingSize/1024)} KB)`;
+  a.className = 'download-link';
+  receivedFiles.appendChild(a);
+  
+  transferStatus.textContent = 'File received! Click to download.';
+  incomingBuffer = [];
+  incomingSize = 0;
+  transferProgress.value = 0;
+}
+
+// Send file over DataChannel
 async function sendFileOverDataChannel(channel, file) {
   if (!file) return;
-  // send metadata
-  channel.send(JSON.stringify({ type: 'meta', name: file.name, size: file.size }));
+  
+  // Send metadata
+  channel.send(JSON.stringify({ 
+    type: 'meta', 
+    name: file.name, 
+    size: file.size 
+  }));
+
   const stream = file.stream ? file.stream() : null;
 
-  // Browser with stream support (modern) -> use reader
   if (stream && stream.getReader) {
+    // Modern stream-based approach
     const reader = stream.getReader();
     let sent = 0;
+    
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
+      
       channel.send(value.buffer || value);
       sent += (value.byteLength || value.length);
-      transferProgress.value = Math.min(sent, file.size);
-      transferStatus.textContent = `Sending... ${Math.round((sent/file.size)*100)}%`;
+      updateSendProgress(sent, file.size);
       await waitForBufferLow(channel);
     }
   } else {
-    // fallback: slice blobs
+    // Fallback: slice blobs
     let offset = 0;
     while (offset < file.size) {
       const chunk = file.slice(offset, offset + CHUNK_SIZE);
       const arrayBuffer = await chunk.arrayBuffer();
       channel.send(arrayBuffer);
       offset += arrayBuffer.byteLength;
-      transferProgress.value = Math.min(offset, file.size);
-      transferStatus.textContent = `Sending... ${Math.round((offset/file.size)*100)}%`;
+      updateSendProgress(offset, file.size);
       await waitForBufferLow(channel);
     }
   }
+  
   transferStatus.textContent = 'Send complete';
-  // optionally close channel/pc
   setTimeout(() => {
-    channel.close();
-    pc.close();
+    try { 
+      channel.close(); 
+      pc.close(); 
+    } catch(e) { console.log('Cleanup error:', e); }
   }, 1000);
 }
 
-// manage datachannel bufferedAmount to avoid overrun
+function updateSendProgress(sent, total) {
+  transferProgress.value = Math.min(sent, total);
+  const percent = Math.round((sent / total) * 100);
+  transferStatus.textContent = `Sending... ${percent}%`;
+}
+
+// Wait for DataChannel buffer to clear
 function waitForBufferLow(channel) {
   return new Promise(resolve => {
-    const maxBuffered = 16 * CHUNK_SIZE; // allow some buffered amount
+    const maxBuffered = 16 * CHUNK_SIZE;
     if (channel.bufferedAmount <= maxBuffered) return resolve();
+    
     const check = () => {
       if (channel.bufferedAmount <= maxBuffered) {
         channel.removeEventListener('bufferedamountlow', check);
         resolve();
       }
     };
+    
     channel.addEventListener('bufferedamountlow', check);
-    // set lowThreshold to half chunk maybe
     try { channel.bufferedAmountLowThreshold = CHUNK_SIZE; } catch {}
-    // fallback timeout
     setTimeout(resolve, 3000);
   });
 }
@@ -303,7 +338,8 @@ function waitForBufferLow(channel) {
 function cleanupConnection() {
   if (dc && dc.readyState !== 'closed') try { dc.close(); } catch {}
   if (pc && pc.connectionState !== 'closed') try { pc.close(); } catch {}
-  pc = null; dc = null;
-  transferStatus.textContent = 'No active transfer';
+  pc = null; 
+  dc = null;
+  transferStatus.textContent = 'Connection closed';
   transferProgress.value = 0;
 }
