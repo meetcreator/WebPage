@@ -113,6 +113,86 @@ Deploy the server and ensure:
 - Port 3000 is accessible
 - Consider adding TURN servers for devices behind restrictive NAT
 
+### Important: HTTPS and Mixed-Content
+
+- If you serve your site over HTTPS (recommended), the signaling server must also be accessible over HTTPS (wss for sockets). Browsers block mixed content (https page connecting to ws:// or http://), which causes "Connection Failed".
+- Options to avoid mixed-content errors:
+   - Run the signaling server behind the same domain and port via a reverse proxy (NGINX/Apache) so `location.origin` works (recommended).
+   - Provision TLS for the signaling server and use its HTTPS URL (e.g. `https://signal.example.com`). Then set the SIGNALING_SERVER to that HTTPS URL or visit the client with `?signal=https://signal.example.com`.
+   - Use a reverse proxy such as NGINX to expose your Node server securely at `https://your-domain.com` and proxy requests to the Node process on port 3000.
+
+### Quick NGINX reverse-proxy example
+Place this on your server (adjust paths and server names):
+
+```nginx
+server {
+   listen 80;
+   server_name your-domain.com;
+   return 301 https://$host$request_uri;
+}
+
+server {
+   listen 443 ssl;
+   server_name your-domain.com;
+   ssl_certificate /path/to/fullchain.pem;
+   ssl_certificate_key /path/to/privkey.pem;
+
+   location / {
+      proxy_pass http://127.0.0.1:3000; # Node signaling server
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+   }
+}
+```
+
+After this, the client can use `location.origin` as the signaling server (no extra config). If your site is on a different host than the signaling server, start the client with `?signal=https://signal.your-domain.com` to override.
+
+## Optimize Hero Image for Faster Loading
+
+For best performance serve responsive WebP images and fallbacks so browsers download the smallest appropriate file. Below are example sizes and commands to create optimized variants from your source `timncocard.png`.
+
+Recommended output filenames (place alongside `timncocard.png` in the repo):
+- `timncocard-320.webp`, `timncocard-320.jpg`
+- `timncocard-720.webp`, `timncocard-720.jpg`
+- `timncocard-1200.webp`, `timncocard-1200.jpg`
+- `timncocard-2000.webp`, `timncocard-2000.jpg`
+
+Windows PowerShell + ImageMagick example:
+
+```powershell
+$sizes = 320,720,1200,2000
+foreach ($s in $sizes) {
+   magick convert timncocard.png -strip -resize ${s}x -quality 80 timncocard-$s.jpg
+   magick timncocard-$s.jpg timncocard-$s.webp
+}
+```
+
+Using `sharp` (Node.js) for the same (recommended for build pipelines):
+
+```bash
+npx sharp timncocard.png -resize 320 -quality 80 timncocard-320.webp
+npx sharp timncocard.png -resize 720 -quality 80 timncocard-720.webp
+npx sharp timncocard.png -resize 1200 -quality 80 timncocard-1200.webp
+npx sharp timncocard.png -resize 2000 -quality 80 timncocard-2000.webp
+
+# Create JPEG fallbacks if you need them
+npx sharp timncocard.png -resize 720 -quality 80 timncocard-720.jpg
+```
+
+Notes:
+- Prefer WebP for modern browsers — it provides significantly smaller files at equal quality.
+- Keep the hero `img` loading priority high (we already set `loading="eager"` and `fetchpriority="high"`).
+- Consider preloading the most-likely hero image for your audience (e.g., 720w) in the HTML head:
+
+```html
+<link rel="preload" as="image" href="/client/timncocard-720.webp" imagesrcset="/client/timncocard-720.webp 720w, /client/timncocard-1200.webp 1200w" imagesizes="(max-width:980px) 720px, 1200px">
+```
+
+- If you use a build pipeline, generate these files automatically and update the `srcset` entries in `index.html` accordingly.
+
 ---
 
 **Server supports multiple concurrent transfers** - Multiple device pairs can exchange files simultaneously.

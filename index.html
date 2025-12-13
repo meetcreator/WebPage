@@ -61,9 +61,24 @@
 
   <!-- HERO -->
   <main>
-    <section class="hero" id="heroSection" style="background-image: url('timncocard.png');">
+    <section class="hero" id="heroSection">
+      <!-- Responsive hero using <picture> for WebP + fallback and multiple sizes for fast loading -->
+      <picture aria-hidden="true">
+        <!-- Fallbacks: use existing PNG until optimized variants are generated -->
+        <source type="image/webp"
+          srcset="timncocard.png 2000w"
+          sizes="100vw">
+
+        <source
+          srcset="timncocard.png 2000w"
+          sizes="100vw">
+
+        <!-- Use the existing PNG file as the displayed image for now -->
+        <img src="timncocard.png" alt="Decorative background" class="hero-bg" loading="eager" fetchpriority="high" />
+      </picture>
+
       <div class="hero-inner container">
-        <p class="lead" style="margin-top: 500px;">I design & build clean, fast, accessible web apps and interfaces. I like minimal design, strong UX, and fast code.</p>
+        <p class="lead">I design & build clean, fast, accessible web apps and interfaces. I like minimal design, strong UX, and fast code.</p>
         <div class="hero-ctas">
           <a class="btn primary" href="portfolio.html">View My Work</a>
           <a class="btn ghost" href="#contact">Let's Talk</a>

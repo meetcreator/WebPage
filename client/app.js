@@ -1,9 +1,25 @@
 // WebRTC file transfer with automatic network discovery
 // Devices on the same network automatically discover each other
 
-const SIGNALING_SERVER = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-  ? 'http://localhost:3000'
-  : 'https://YOUR_DEPLOYED_SIGNALING_SERVER'; // update after deploy
+// SIGNALING_SERVER selection logic:
+// - You can override the signaling server by adding ?signal=https://your-signaling.example to the page URL
+// - If running on localhost, use the local server at http://localhost:3000
+// - Otherwise default to the current site origin (works if you proxy the signaling server behind the same domain)
+const SIGNALING_SERVER = (() => {
+  try {
+    const q = new URLSearchParams(location.search).get('signal');
+    if (q) return q;
+  } catch (e) {
+    // ignore
+  }
+
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    return 'http://localhost:3000';
+  }
+
+  // Default to same origin. If your signaling server is on a separate host/port, provide it via ?signal=...
+  return `${location.protocol}//${location.hostname}${location.port ? ':' + location.port : ''}`;
+})();
 
 import { io as ClientIO } from "https://cdn.socket.io/4.7.2/socket.io.esm.min.js";
 

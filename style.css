@@ -78,8 +78,22 @@ header.premium-header{
 .logo{font-weight:700;font-size:1.05rem;letter-spacing:0.5px;}
 .logo a{color:var(--fg);text-decoration:none;}
 
-.nav-desktop{flex:1;margin:0 1.5rem;}
+/* position logo flush to the left corner of the header */
+.logo{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:1250;
+}
+
+@media (max-width:520px){
+  .logo{left:10px;font-size:1rem}
+}
+
+.nav-desktop{flex:1;margin:0 1.5rem;display:flex;justify-content:center;}
 nav{display:flex;gap:1rem;align-items:center;}
+.nav-desktop .nav-links{justify-content:center;}
 nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0;}
 nav a{color:var(--fg);text-decoration:none;font-weight:500;font-size:0.95rem;opacity:0.95;}
 nav a:hover{color:var(--accent);}
@@ -120,6 +134,19 @@ html, body, * {
 
 /* theme toggle (kept simple & accessible) */
 .theme-toggle{background:transparent;border:0;font-size:1.25rem;cursor:pointer;padding:.4rem;line-height:1;color:var(--fg);}
+
+/* pin the theme toggle to the viewport top-right */
+.theme-toggle{
+  position:fixed;
+  top:12px;
+  right:12px;
+  z-index:1300;
+}
+
+/* ensure toggle doesn't overlap important controls on very small screens */
+@media (max-width:420px){
+  .theme-toggle{top:8px;right:8px;font-size:1.05rem;padding:.35rem}
+}
 
 /* Nav actions layout + File Sharing button */
 .nav-actions{display:flex;align-items:center;gap:0.5rem}
@@ -175,9 +202,39 @@ body.dark-mode .nav-actions .file-share{border-color:rgba(255,255,255,0.08);}
   z-index:1;
 }
 
+/* Responsive image element used as hero background for better crop control */
+.hero-bg{
+  position:absolute;
+  inset:0; /* top:0; right:0; bottom:0; left:0; */
+  width:100%;
+  height:100%;
+  object-fit:cover; /* preserves aspect ratio and crops */
+  object-position:center center; /* focal point */
+  z-index:0;
+  pointer-events:none; /* decorative only */
+  user-select:none;
+}
+
+/* Adjust focal area for narrower screens where top part is more important */
+@media (max-width: 980px){
+  .hero-bg{ object-position: center 30%; }
+  .hero{ min-height:80vh; }
+  /* reduce hero offset on narrower screens to avoid excessive whitespace */
+  .hero .container{margin-top:350px;}
+}
+
+/* Very small screens: favor top of the image and reduce hero height */
+@media (max-width: 520px){
+  .hero-bg{ object-position: center 20%; }
+  .hero{ min-height:60vh; }
+  /* mobile: smaller offset so content fits above fold */
+  .hero .container{margin-top:80px;}
+  .hero .hero-inner.container{padding:2rem var(--gutter);} 
+}
 
 
-.hero .container{display:flex;flex-direction:column;gap:1rem;align-items:center;justify-content:center;position:relative;z-index:2;padding:3.2rem var(--gutter);}
+
+.hero .container{display:flex;flex-direction:column;gap:1rem;align-items:center;justify-content:center;position:relative;z-index:2;padding:3.2rem var(--gutter);margin-top:450px;} 
 .hero h1{font-size:clamp(2rem,5vw,3.6rem);margin:0;font-weight:800;line-height:1.02;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.4);}
 .hero p{margin:0;font-size:clamp(1rem,2.2vw,1.25rem);color:#fff;max-width:48ch;opacity:.95;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
 
@@ -268,6 +325,12 @@ nav ul li {
   position: relative;
 }
 
+/* enlarge hover area below the trigger so submenu doesn't collapse */
+.dropdown{padding-bottom:12px;}
+
+/* keep dropdown open for keyboard users while focused */
+.dropdown:focus-within .dropdown-menu{display:block;}
+
 .dropdown > a::after {
   content: " ▾";
   font-size: 0.7rem;
@@ -275,8 +338,10 @@ nav ul li {
 
 .dropdown-menu {
   position: absolute;
-  top: 120%;
-  left: 0;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: top center;
   min-width: 180px;
   background: var(--header-bg);
   backdrop-filter: blur(8px);
@@ -286,6 +351,7 @@ nav ul li {
   padding: 0.5rem 0;
   display: none;
   z-index: 1000;
+  transition: opacity 180ms var(--ease), transform 180ms var(--ease);
 }
 
 .dropdown-menu li a {
@@ -306,22 +372,46 @@ nav ul li {
 }
 
 /* --- Mobile dropdown (click-to-open) --- */
-@media (max-width: 720px) {
-  nav ul {
-    display: block;
-  }
-
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    background: transparent;
-    padding-left: 1rem;
-  }
-
-  .dropdown.open .dropdown-menu {
-    display: block;
-  }
+@media (max-width: 520px){
+  .hero-bg{ object-position: center 20%; }
+  .hero{ min-height:60vh; }
+  /* mobile: smaller offset so content fits above fold */
+  .hero .container{margin-top:280px;}
+  .hero .hero-inner.container{padding:2rem var(--gutter);} 
 }
+  /* --- Mobile dropdown becomes a sliding side menu (touch) --- */
+  @media (max-width: 720px) {
+    nav ul { display: block; }
+
+    .dropdown-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: auto;
+      width: 280px;
+      height: 100vh;
+      background: var(--section);
+      color: var(--fg);
+      box-shadow: -18px 0 40px rgba(0,0,0,0.12);
+      border-radius: 0;
+      padding-top: 3.5rem;
+      padding-left: 0;
+      transform: translateX(100%);
+      transition: transform 220ms var(--ease), opacity 220ms var(--ease);
+      display: block;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1500;
+    }
+
+    .dropdown.open .dropdown-menu {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .dropdown-menu li a { padding: 0.9rem 1.25rem; display: block; }
+  }
 
 
 /* --------- Browser Compatibility Note ---------
