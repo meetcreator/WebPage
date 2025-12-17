@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hand Controlled 3D Illusion</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: black; }
+    
+    #output {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1001;
+      border: 2px solid cyan;
+      background: black;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+      max-width: 320px;
+      height: auto;
+    }
+    
+    canvas { position: absolute; top: 0; left: 0; }
+    video { display: none; }
+    
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      padding: 10px 20px;
+      background: rgba(0, 255, 255, 0.2);
+      border: 2px solid cyan;
+      color: cyan;
+      text-decoration: none;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      background: rgba(0, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <a href="../portfolio.html" class="back-btn">← Back to Portfolio</a>
+  <video id="video" autoplay></video>
+  <canvas id="output"></canvas>
+
+  <!-- MediaPipe -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+  <!-- Hand Control Scripts -->
+  <script src="gestureControl.js"></script>
+  <script src="scene3D.js"></script>
+  <script src="handDetection.js"></script>
+</body>
+</html>
