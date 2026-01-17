@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://docs.google.com; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'" />
   <title>Drumil — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="portfolio.css" />
@@ -57,6 +58,19 @@
     </div>
   </header>
 
+  <!-- SIDE MENU -->
+  <div id="side-menu" class="side-menu open" aria-hidden="false">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <nav class="side-nav" role="navigation" aria-label="Main">
+      <ul class="side-nav-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
   <!-- MAIN CONTENT -->
   <main>
     <!-- PORTFOLIO HEADER -->
@@ -98,7 +112,7 @@
         <!-- Web Design Card 1 -->
         <div class="portfolio-card" data-category="web-design" data-video="https://www.w3schools.com/html/mov_bbb.mp4">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Modern+Landing" alt="Modern Landing Page">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EModern Landing%3C/text%3E%3C/svg%3E" alt="Modern Landing Page">
           </div>
           <div class="portfolio-card-content">
             <span class="category">Web Design</span>
@@ -111,7 +125,7 @@
         <!-- Web Design Card 2 -->
         <div class="portfolio-card" data-category="web-design" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Dashboard+UI" alt="Dashboard Design">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EDashboard UI%3C/text%3E%3C/svg%3E" alt="Dashboard Design">
           </div>
           <div class="portfolio-card-content">
             <span class="category">Web Design</span>
@@ -124,7 +138,7 @@
         <!-- Web Dev Card 1 -->
         <div class="portfolio-card" data-category="web-dev" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=E-commerce" alt="E-commerce Platform">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EE-commerce%3C/text%3E%3C/svg%3E" alt="E-commerce Platform">
           </div>
           <div class="portfolio-card-content">
             <span class="category">Web Dev</span>
@@ -137,7 +151,7 @@
         <!-- Web Dev Card 2 -->
         <div class="portfolio-card" data-category="web-dev" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Real-time+Chat" alt="Chat Application">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EReal-time Chat%3C/text%3E%3C/svg%3E" alt="Chat Application">
           </div>
           <div class="portfolio-card-content">
             <span class="category">Web Dev</span>
@@ -150,7 +164,7 @@
         <!-- App Dev Card 1 -->
         <div class="portfolio-card" data-category="app-dev" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Mobile+App" alt="Mobile App">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EMobile App%3C/text%3E%3C/svg%3E" alt="Mobile App">
           </div>
           <div class="portfolio-card-content">
             <span class="category">App Dev</span>
@@ -163,7 +177,7 @@
         <!-- App Dev Card 2 -->
         <div class="portfolio-card" data-category="app-dev" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Fitness+Tracker" alt="Fitness Tracker">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EFitness Tracker%3C/text%3E%3C/svg%3E" alt="Fitness Tracker">
           </div>
           <div class="portfolio-card-content">
             <span class="category">App Dev</span>
@@ -176,7 +190,7 @@
         <!-- Creative Card 1 -->
         <div class="portfolio-card" data-category="creative" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Brand+Identity" alt="Brand Identity">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EBrand Identity%3C/text%3E%3C/svg%3E" alt="Brand Identity">
           </div>
           <div class="portfolio-card-content">
             <span class="category">Creative</span>
@@ -189,7 +203,7 @@
         <!-- Creative Card 2 -->
         <div class="portfolio-card" data-category="creative" data-video="">
           <div class="portfolio-card-image">
-            <img src="https://via.placeholder.com/800x450?text=Motion+Graphics" alt="Motion Graphics">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EMotion Graphics%3C/text%3E%3C/svg%3E" alt="Motion Graphics">
           </div>
           <div class="portfolio-card-content">
             <span class="category">Creative</span>
@@ -234,7 +248,7 @@
   <!-- FOOTER -->
   <footer class="section footer">
     <div class="container text-center">
-      <<div style="margin-bottom: 1rem;">
+      <div style="margin-bottom: 1rem;">
         <p><strong>Contact me</strong></p>
         <p><a href="mailto:your-email@example.com">Email: 404notfoundany@gmail.com</a></p>
         <p><a href="tel:+1234567890">whatsapp: +91 9726120903 </a></p>
@@ -244,7 +258,8 @@
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="portfolio.js" type="module"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/portfolio.js" type="module"></script>
   <script>
     // Theme toggle - initialize dark mode by default
     const themeBtn = document.getElementById("theme-icon");
@@ -315,5 +330,31 @@
       initPortfolioFilter();
     }
   </script>
+  <script>
+  const sidebar = document.getElementById("sidebar");
+
+  function openNav() {
+    sidebar.classList.add("open");
+    document.body.classList.add("menu-open");
+    sidebar.setAttribute("aria-hidden", "false");
+  }
+
+  function closeNav() {
+    sidebar.classList.remove("open");
+    document.body.classList.remove("menu-open");
+    sidebar.setAttribute("aria-hidden", "true");
+  }
+
+  // Close menu when clicking a link
+  document.querySelectorAll(".sidebar-nav a").forEach(link => {
+    link.addEventListener("click", closeNav);
+  });
+
+  // ESC key closes menu
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNav();
+  });
+</script>
+
 </body>
 </html>

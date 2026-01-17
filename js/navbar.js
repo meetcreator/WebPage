@@ -1,29 +1,13 @@
-// navbar.js — mobile menu + dropdown click handlers
+// navbar.js — dropdown click handlers for mobile
+
 document.addEventListener("DOMContentLoaded", () => {
-  const hamburger = document.getElementById("hamburger");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const mobileClose = document.getElementById("mobileClose");
-
-  if (hamburger && mobileMenu) {
-    hamburger.addEventListener("click", () => {
-      const open = mobileMenu.classList.toggle("open");
-      mobileMenu.setAttribute("aria-hidden", String(!open));
-      document.documentElement.style.overflow = open ? "hidden" : "";
-    });
-  }
-
-  if (mobileClose && mobileMenu) {
-    mobileClose.addEventListener("click", () => {
-      mobileMenu.classList.remove("open");
-      mobileMenu.setAttribute("aria-hidden", "true");
-      document.documentElement.style.overflow = "";
-    });
-  }
-
-  // Mobile nested toggles
-  document.querySelectorAll(".mobile-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-      btn.parentElement.classList.toggle("open");
+  // Mobile dropdown toggles for sidebar navigation
+  document.querySelectorAll(".sidebar .dropdown > a").forEach(link => {
+    link.addEventListener("click", (e) => {
+      // In sidebar, always toggle dropdown on click (don't navigate)
+      e.preventDefault();
+      const dropdown = link.parentElement;
+      dropdown.classList.toggle("open");
     });
   });
 
@@ -32,6 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", (e) => {
       // on small screens, toggle parent so mobile fallback works
       if (window.innerWidth < 860) {
+        const href = link.getAttribute("href");
+        if (href && href !== "#" && !href.startsWith("javascript:")) {
+          return; // Let normal link navigation happen
+        }
+        
         e.preventDefault();
         link.parentElement.classList.toggle("open");
       }

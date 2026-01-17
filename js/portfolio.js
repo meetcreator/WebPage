@@ -1,10 +1,47 @@
 // portfolio.js — filters, preview overlay, keyboard & touch support
 import './script.js';
+import './navbar.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   // Year
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Hamburger menu toggle for sidebar
+  const hamburger = document.getElementById("hamburger");
+  const sidebar = document.getElementById("sidebar");
+
+  if (hamburger && sidebar) {
+    hamburger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = sidebar.classList.toggle("open");
+      sidebar.setAttribute("aria-hidden", String(!isOpen));
+      console.log("Hamburger clicked, sidebar open:", isOpen);
+    });
+
+    // Close menu when clicking on a link
+    const sidebarLinks = sidebar.querySelectorAll("a");
+    sidebarLinks.forEach(link => {
+      link.addEventListener("click", (e) => {
+        // Don't close if it's the close button or a dropdown toggle link
+        if (!link.classList.contains("closebtn") && !link.parentElement.classList.contains("dropdown")) {
+          sidebar.classList.remove("open");
+          sidebar.setAttribute("aria-hidden", "true");
+        }
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", (e) => {
+      const isClickInsideSidebar = sidebar.contains(e.target);
+      const isClickOnHamburger = hamburger.contains(e.target);
+      
+      if (!isClickInsideSidebar && !isClickOnHamburger) {
+        sidebar.classList.remove("open");
+        sidebar.setAttribute("aria-hidden", "true");
+      }
+    });
+  }
 
   // Contact form (demo)
   const contactForm = document.getElementById("contactForm");

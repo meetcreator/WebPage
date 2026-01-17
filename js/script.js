@@ -10,30 +10,8 @@
    ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* ==========================================================
-     1. THEME TOGGLE (Smooth + Animated Icon)
-     ========================================================== */
-  const themeBtn = document.getElementById("theme-icon");
-
-  // Load saved theme (default to dark mode)
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "light") {
-    document.body.classList.remove("dark-mode");
-    themeBtn.textContent = "🌙";
-  } else {
-    document.body.classList.add("dark-mode");
-    themeBtn.textContent = "☀️";
-  }
-
-  // Toggle theme
-  themeBtn.addEventListener("click", () => {
-    const isDark = document.body.classList.toggle("dark-mode");
-    themeBtn.textContent = isDark ? "☀️" : "🌙";
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  });
-
-
+  // Ensure page scrolling is enabled on load (guards against stray overflow:hidden)
+  try { document.documentElement.style.overflow = document.documentElement.style.overflow || ""; } catch (e) {}
 
   /* ==========================================================
      2. MOBILE MENU + DROPDOWNS
@@ -42,14 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenu = document.getElementById("mobileMenu");
   const mobileClose = document.getElementById("mobileClose");
 
-  if (hamburger) {
+  if (hamburger && mobileMenu) {
     hamburger.addEventListener("click", () => {
       mobileMenu.classList.add("open");
       document.documentElement.style.overflow = "hidden";
     });
   }
 
-  if (mobileClose) {
+  if (mobileClose && mobileMenu) {
     mobileClose.addEventListener("click", () => {
       mobileMenu.classList.remove("open");
       document.documentElement.style.overflow = "";
@@ -152,28 +130,32 @@ document.addEventListener("DOMContentLoaded", () => {
   if (pcNext) pcNext.addEventListener("click", (e) => { e.stopPropagation(); showNext(); });
   if (pcPrev) pcPrev.addEventListener("click", (e) => { e.stopPropagation(); showPrev(); });
 
-  overlay.addEventListener("click", e => {
-    if (e.target === overlay || e.target.classList.contains("pc-dim")) closePreview();
-  });
+  if (overlay) {
+    overlay.addEventListener("click", e => {
+      if (e.target === overlay || e.target.classList.contains("pc-dim")) closePreview();
+    });
+  }
 
   // keyboard controls
-  document.addEventListener("keydown", e => {
-    if (overlay.classList.contains("hidden")) return;
-    if (e.key === "Escape") closePreview();
-    if (e.key === "ArrowRight") showNext();
-    if (e.key === "ArrowLeft") showPrev();
-  });
+  if (overlay) {
+    document.addEventListener("keydown", e => {
+      if (overlay.classList.contains("hidden")) return;
+      if (e.key === "Escape") closePreview();
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+    });
 
-  // touch swipe
-  let startX = 0;
-  overlay.addEventListener("touchstart", e => {
-    startX = e.changedTouches[0].screenX;
-  });
+    // touch swipe
+    let startX = 0;
+    overlay.addEventListener("touchstart", e => {
+      startX = e.changedTouches[0].screenX;
+    });
 
-  overlay.addEventListener("touchend", e => {
-    const dx = e.changedTouches[0].screenX - startX;
-    if (Math.abs(dx) > 50) dx < 0 ? showNext() : showPrev();
-  });
+    overlay.addEventListener("touchend", e => {
+      const dx = e.changedTouches[0].screenX - startX;
+      if (Math.abs(dx) > 50) dx < 0 ? showNext() : showPrev();
+    });
+  }
 
 
 

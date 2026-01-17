@@ -7,17 +7,50 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Simple header (copy full header from index.html in production) -->
-  <header class="premium-header">
-    <div class="nav-container container">
-      <div class="logo"><a href="index.html">DRUMIL PATEL</a></div>
-      <nav class="nav-desktop"><ul class="nav-links"><li><a href="index.html">Home</a></li></ul></nav>
-      <div class="nav-actions">
-        <button class="theme-toggle" id="theme-icon" aria-label="Toggle theme"><svg id="themeIconSVG" width="24" height="24"></svg></button>
-        <button id="hamburger" class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
-      </div>
+  <!-- SIDEBAR NAVIGATION -->
+  <div id="sidebar" class="sidebar" aria-hidden="true">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="sidebar-logo"><a href="index.html">DRUMIL PATEL</a></div>
+    <nav class="sidebar-nav" role="navigation" aria-label="Main">
+      <ul class="sidebar-links">
+        <li class="dropdown">
+          <a href="index.html">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="index.html#about">Overview</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="service.html">Services</a>
+          <ul class="dropdown-menu">
+            <li><a href="service.html#services">All Services</a></li>
+            <li><a href="service.html#next-project">Suggest Ideas</a></li>
+            <li><a href="service.html#contact">Contact</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="portfolio.html">Portfolio</a>
+          <ul class="dropdown-menu">
+            <li><a href="portfolio.html#Overview">Overview</a></li>
+            <li><a href="portfolio.html#WebDev">Web Dev</a></li>
+            <li><a href="portfolio.html#Quant">Quant</a></li>
+            <li><a href="portfolio.html#Auto">Automation/AI</a></li>
+          </ul>
+        </li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-actions">
+      <button id="theme-icon" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="client/index.html" class="file-share" aria-label="Open file sharing">File Sharing</a>
     </div>
-  </header>
+  </div>
+
+  <!-- HAMBURGER BUTTON -->
+  <button id="hamburger" class="hamburger" onclick="openNav()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 
   <main>
     <section class="section">

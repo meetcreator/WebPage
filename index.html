@@ -3,85 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://docs.google.com; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'" />
   <title>Drumil Patel — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dark-mode">
-  <!-- PREMIUM HEADER -->
-  <header class="premium-header" role="banner">
-    <div class="nav-container container">
-      <div class="logo"><a href="index.html">DRUMIL PATEL</a></div>
-
-      <nav class="nav-desktop" role="navigation" aria-label="Main">
-        <ul class="nav-links">
-          <li class="dropdown">
-            <a href="index.html">About</a>
-            <ul class="dropdown-menu" aria-hidden="true">
-              <li><a href="#about">Overview</a></li>
-              <li><a href="#skills">Skills</a></li>
-              <li><a href="#experience">Experience</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="service.html">Services</a>
-            <ul class="dropdown-menu" aria-hidden="true">
-              <li><a href="#services">All Services</a></li>
-              <li><a href="#next-project">Suggest Ideas</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
-            <a href="portfolio.html">Portfolio</a>
-            <ul class="dropdown-menu" aria-hidden="true">
-              <li><a href="portfolio.html#Overview">Overview</a></li>
-              <li><a href="portfolio.html#WebDev">Web Dev</a></li>
-              <li><a href="portfolio.html#Quant">Quant</a></li>
-              <li><a href="portfolio.html#Auto">Automation/AI</a></li>
-            </ul>
-          </li>
-
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="client/index.html" class="file-share" aria-label="Open file sharing">File Sharing</a>
-        <button id="theme-icon" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+  <!-- SIDEBAR NAVIGATION -->
+  <div id="sidebar" class="sidebar" aria-hidden="true">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="sidebar-nav"><a href="index.html">HOME</a></div>
+    <nav class="sidebar-nav" role="navigation " aria-label="Main">
+      <ul class="sidebar-links">
+        <li class="dropdown">
+          <a href="index.html">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="#about">Overview</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="service.html">Services</a>
+          <ul class="dropdown-menu">
+            <li><a href="#services">All Services</a></li>
+            <li><a href="#next-project">Suggest Ideas</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="portfolio.html">Portfolio</a>
+          <ul class="dropdown-menu">
+            <li><a href="portfolio.html#Overview">Overview</a></li>
+            <li><a href="portfolio.html#WebDev">Web Dev</a></li>
+            <li><a href="portfolio.html#Quant">Quant</a></li>
+            <li><a href="portfolio.html#Auto">Automation/AI</a></li>
+          </ul>
+        </li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-actions">
+      <button id="theme-icon" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+      <a href="client/index.html" class="file-share" aria-label="Open file sharing">File Sharing</a>
     </div>
+  </div>
 
-    
-  </header>
+  <!-- HAMBURGER BUTTON -->
+  <button id="hamburger" class="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
   
 
   <!-- HERO -->
   <main>
     <section class="hero" id="heroSection">
-      <!-- Responsive hero using <picture> for WebP + fallback and multiple sizes for fast loading -->
-      <picture aria-hidden="true">
-        <!-- Fallbacks: use existing PNG until optimized variants are generated -->
-        <source type="image/webp"
-          srcset="timncocard.png 2000w"
-          sizes="100vw">
-
-        <source
-          srcset="timncocard.png 2000w"
-          sizes="100vw">
-
-        <!-- Use the existing PNG file as the displayed image for now -->
-        <img src="timncocard.png" alt="Decorative background" class="hero-bg" loading="eager" fetchpriority="high" />
-      </picture>
+      <!-- Hero with solid background color -->
 
       <div class="hero-inner container">
-        <p class="lead">I design & build clean, fast, accessible web apps and interfaces. I like minimal design, strong UX, and fast code.</p>
-        <div class="hero-ctas">
-          <a class="btn primary" href="portfolio.html">View My Work</a>
-          <a class="btn ghost" href="#contact">Let's Talk</a>
+        <div class="hero-content">
+          <h1 class="split-animate">TINMCO</h1>
+          <h2 class="split-animate">Drumil Patel</h2>
+          <p class="lead">I design & build clean, fast, accessible web apps and interfaces</p>
+          
+          <div class="hero-ctas">
+            <a class="btn primary" href="portfolio.html">View My Work</a>
+            <a class="btn ghost" href="#contact">Let's Talk</a>
+          </div>
         </div>
       </div>
     </section>
@@ -89,12 +76,12 @@
     <!-- ABOUT -->
     <section id="about" class="section">
       <div class="container">
-        <h2>About Me</h2>
+        <h2 class="split-animate">About Me</h2>
         <p class="muted">I build web apps, automations, and data tools — from prototypes to production. I like fast frontends, pragmatic design, and clean engineering.</p>
         <div class="cards">
           <article class="card">
             <h3>Who I Am</h3>
-            <p>Computer Science student — passionate about full-stack, ML, and automation. Strong in Java, Python, and modern JS.</p>
+            <p>Computer Science student — passionate about full-stack, ML, and automation. Strong in Java, Python, and C++.</p>
           </article>
           <article class="card">
             <h3>What I Do</h3>
@@ -107,7 +94,7 @@
     <!-- SERVICES -->
     <section id="services" class="section">
       <div class="container">
-        <h2>Services</h2>
+        <h2 class="split-animate">Services</h2>
         <div class="cards">
           <div class="card"><h3>Web Design</h3><p>UI/UX, landing pages, responsive systems.</p></div>
           <div class="card"><h3>Web Development</h3><p>React / Node / REST / Firebase.</p></div>
@@ -120,15 +107,15 @@
     <!-- PROJECTS PREVIEW -->
     <section id="projects" class="section">
       <div class="container">
-        <h2>Selected Projects</h2>
+        <h2 class="split-animate">Selected Projects</h2>
         <div class="project-gallery">
           <div class="project-item card" tabindex="0">
-            <img src="https://via.placeholder.com/640x360" alt="Modern landing example">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Crect fill='%23222' width='640' height='360'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='24'%3EModern Landing%3C/text%3E%3C/svg%3E" alt="Modern landing example">
             <h3>Modern Landing Page</h3>
             <p class="muted">Landing + animations + performance optimised.</p>
           </div>
           <div class="project-item card" tabindex="0">
-            <img src="https://via.placeholder.com/640x360" alt="Web app example">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Crect fill='%23222' width='640' height='360'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='24'%3EWeb App%3C/text%3E%3C/svg%3E" alt="Web app example">
             <h3>Interactive Web App</h3>
             <p class="muted">Real-time UI, PWAs and offline capabilites.</p>
           </div>
@@ -139,13 +126,13 @@
       </div>
     </section>
 
-    <!-- NEXT PROJECT (iframe) -->
+    <!-- NEXT PROJECT -->
     <section id="next-project" class="section">
       <div class="container">
-        <h2>Suggest Ideas</h2>
+        <h2 class="split-animate">Suggest Ideas</h2>
         <p class="muted">Tell me what to build next — anonymous quick form.</p>
-        <div class="frame-wrap">
-          <iframe src="https://forms.gle/efoxhX48sztF54Yn6" title="Suggest Ideas" loading="lazy"></iframe>
+        <div class="text-center">
+          <a class="btn primary" href="https://forms.gle/efoxhX48sztF54Yn6" target="_blank" rel="noopener noreferrer">Open Suggestion Form</a>
         </div>
       </div>
     </section>
@@ -154,7 +141,7 @@
     <!-- CERTIFICATES -->
     <section id="certificates" class="section">
       <div class="container">
-        <h2>Certificates</h2>
+        <h2 class="split-animate">Certificates</h2>
         <div class="cards">
           <div class="card">
             <h3>Full Stack Web Development</h3>
@@ -168,68 +155,31 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section">
-      <div class="container">
-        <h2>Contact</h2>
-        <p class="muted text-center">Want to build something together? Reach out.</p>
-
-        <form id="contactForm" class="form">
-          <input name="name" placeholder="Your name" required />
-          <input name="email" type="email" placeholder="Email" required />
-          <textarea name="message" placeholder="Message" required></textarea>
-          <div style="display:flex;gap:0.75rem;align-items:center;">
-            <button type="submit" class="btn primary">Send Message</button>
-            <div id="submission-status" aria-live="polite"></div>
-          </div>
-        </form>
-      </div>
-    </section>
-
-  </main>
-
   <!-- FOOTER -->
   <footer class="section footer">
     <div class="container text-center">
       <div style="margin-bottom: 1rem;">
         <p><strong>Contact me</strong></p>
-        <p><a href="mailto:your-email@example.com">Email: 404notfoundany@gmail.com</a></p>
-        <p><a href="tel:+1234567890">whatsapp: +91 9726120903 </a></p>
+        <p><h2>Email Composition Link</h2>
+    <p>Click the link below to open your email client with pre-filled details.</p>
+    
+    <a href="mailto:404notfoundany@gmail.com
+       cc=jane.doe@example.com&
+       subject=Meeting%20Request&
+       body=Hi%20Drumil%20and%20Jane%2C%0D%0A%0D%0APlease%20let%20me%20know%20your%20availability%20for%20a%20meeting%20next%20week.%0D%0A%0D%0ABest%20regards%2C%0D%0A[Your%20Name]">
+       Email: 404notfoundany@gmail.com</a></p>
+        <p class="whatsapp-wrap"><a aria-label="Chat on WhatsApp" href="https://wa.me/9909045665?text=I'm%20interested%20in%20your%20work."> <img class="whatsapp-btn" alt="Chat on WhatsApp" src="WhatsAppButtonGreenMedium.png" /></a></p>
       </div>
       <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- SCRIPTS -->
-  <script src="portfolio.js" type="module"></script>
-  <script>
-    // Theme toggle - initialize dark mode by default
-    const themeBtn = document.getElementById("theme-icon");
-    
-    function initTheme() {
-      const saved = localStorage.getItem("theme");
-      if (saved === "light") {
-        document.body.classList.remove("dark-mode");
-        themeBtn.textContent = "🌙";
-      } else {
-        document.body.classList.add("dark-mode");
-        themeBtn.textContent = "☀️";
-      }
-    }
-    
-    // Initialize on page load
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTheme);
-    } else {
-      initTheme();
-    }
-    
-    // Toggle on click
-    themeBtn.addEventListener("click", () => {
-      const isDark = document.body.classList.toggle("dark-mode");
-      themeBtn.textContent = isDark ? "☀️" : "🌙";
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    });
-  </script>
+  <script src="js/init.js" defer></script>
+  <script src="js/portfolio.js" type="module" defer></script>
+
+
+  <script src="js/split-anim.js" defer></script>
+
 </body>
 </html>
