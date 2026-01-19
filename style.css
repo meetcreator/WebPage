@@ -301,18 +301,7 @@ body.dark-mode .nav-actions .file-share{border-color:rgba(255,255,255,0.08);}
 
 /* Ensure page content starts below the fixed hero so the hero is visible initially
   but sections will overlap the hero when scrolled. Adjust responsively. */
-
-main{
-  position: relative;
-  z-index: 1;
-  padding-top: 0;
-}
-
-/* Only push content when hero exists */
-body.has-hero main{
-  padding-top: 100vh;
-}
-
+
 .hero h1{font-size:clamp(7rem,15vw,10rem);margin:0;padding:0;font-weight:500;line-height:1.02;color:#000;text-shadow:none;}
 .hero h2{font-size:clamp(1rem,4vw,2rem);margin:0.25rem 0 0;padding:0;font-weight:400;color:#000;text-shadow:none;}
 .hero p{margin:1rem 0 0;font-size:clamp(1rem,2.2vw,1.25rem);color:#502626;max-width:48ch;opacity:.95;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
