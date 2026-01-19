@@ -30,689 +30,252 @@ body.dark-mode{
   --header-bg: rgba(18,18,18,0.85);
 }
 
-/* --------- Global Resets & Performance --------- */
+/* --------- Global Reset --------- */
 *,
 *::before,
-*::after{box-sizing:border-box;}
+*::after{ box-sizing:border-box; }
 
-html,body{min-height:100%;}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;scroll-behavior:smooth;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-
-/* Smooth scrolling already enabled above; ensure finer behaviour for anchors */
-html{scroll-behavior:smooth}
-
-/* Split/scroll reveal animation */
-.split-animate{display:inline-block;line-height:1;word-break:break-word}
-.split-word{display:inline-block;white-space:nowrap;margin:0 .35ch}
-.split-char{display:inline-block;transform:translateY(18px) rotate(6deg);opacity:0}
-.split-animate.in .split-char{transform:translateY(0) rotate(0);opacity:1}
-.split-animate .split-char{transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
-
-/* Slightly staggered effect using CSS variable --d applied inline from JS */
-.split-char{transition-delay:var(--d,0ms)}
-
-/* Performance: reduce animation details on prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce){
-  .split-char{transition:none;transform:none;opacity:1}
+html,body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  scroll-behavior:smooth;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-/* prevent horizontal overflow */
-html,body{overflow-x:hidden;}
-
-/* images/media responsiveness (edited & kept) */
-img,iframe,video{max-width:100%;height:auto;display:block;}
-
-/* limit element widths globally so nothing exceeds the viewport */
-.container{width:100%;max-width:var(--max-width);margin:0 auto;padding:0 var(--gutter);}
-
-/* keep transitions cheap: opacity & transform only */
-:where(.fade, .btn, .card){transition:opacity var(--ease), transform var(--ease);will-change:transform,opacity;}
-
-/* reduce motion preference */
-@media (prefers-reduced-motion: reduce){
-  :where(.fade, .btn, .card){transition:none;animation:none;}
-  html{scroll-behavior:auto;}
+img,video,iframe{
+  max-width:100%;
+  height:auto;
+  display:block;
 }
 
-/* --------- Header / Nav --------- */
+.container{
+  width:100%;
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:0 var(--gutter);
+}
+
+/* --------- Header --------- */
 header.premium-header{
-  position:sticky;top:0;z-index:1000;
+  position:sticky;
+  top:0;
+  z-index:1100;
   background:var(--header-bg);
   backdrop-filter:blur(8px);
-  box-shadow:0 1px 0 rgba(0,0,0,0.04);
+  box-shadow:0 1px 0 rgba(0,0,0,0.05);
 }
 
 .nav-container{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0.9rem calc(var(--gutter) + 0.5rem);
-  width:100%;
-  max-width:var(--max-width);
-  margin:0 auto;
+  padding:0.9rem calc(var(--gutter) + .5rem);
 }
 
-.logo{font-weight:700;font-size:1.05rem;letter-spacing:0.5px;}
-.logo a{color:var(--fg);text-decoration:none;}
-
-/* position logo flush to the left corner of the header */
 .logo{
   position:absolute;
   left:12px;
   top:50%;
   transform:translateY(-50%);
-  z-index:1250;
+  font-weight:700;
+  font-size:1.05rem;
 }
 
-@media (max-width:520px){
-  .logo{left:10px;font-size:1rem}
-}
-
-.nav-desktop{flex:1;margin:0 1.5rem;display:flex;justify-content:center;}
-nav{display:flex;gap:1rem;align-items:center;}
-.nav-desktop .nav-links{justify-content:center;}
-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0;}
-nav a{color:var(--fg);text-decoration:none;font-weight:500;font-size:0.95rem;opacity:0.95;}
-nav a:hover{color:var(--accent);}
-
-header.apple-style-header{
-  position:sticky;top:0;z-index:1000;
-  background:var(--header-bg);
-  backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:.9rem calc(var(--gutter) + .5rem);
-  box-shadow:0 1px 0 rgba(0,0,0,0.04);
-}
-
-.logo{font-weight:700;font-size:1.05rem;letter-spacing:0.5px;}
-nav{display:flex;gap:1rem;align-items:center;}
-nav ul{display:flex;gap:1rem;list-style:none;margin:0;padding:0;}
-nav a{color:var(--fg);text-decoration:none;font-weight:500;font-size:0.95rem;opacity:0.95;}
-nav a:hover{color:var(--accent);}
-
-/* Smooth theme fade */
-html, body, * {
-  transition: background-color 0.35s ease, 
-              color 0.35s ease, 
-              border-color 0.35s ease,
-              fill 0.35s ease,
-              stroke 0.35s ease;
-}
-
-/* Prevent layout shift */
-.theme-toggle svg {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.4s cubic-bezier(.3, .7, .4, 1);
-}
-.theme-toggle:hover svg {
-  transform: rotate(20deg);
-}
-
-/* theme toggle (kept simple & accessible) */
-.theme-toggle{background:transparent;border:0;font-size:1.25rem;cursor:pointer;padding:.4rem;line-height:1;color:var(--fg);}
-
-/* Hamburger button */
-.hamburger {
-  position: fixed;
-  top: 12px;
-  right: 12px;
-  z-index: 1300;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-body.menu-open .hamburger span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-body.menu-open .hamburger span:nth-child(2) {
-  opacity: 0;
-}
-
-body.menu-open .hamburger span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -6px);
-}
-
-
-.hamburger span {
-  width: 20px;
-  height: 2px;
-  background: var(--fg);
-  transition: 0.3s;
-}
-
-/* ensure hamburger doesn't overlap on very small screens */
-@media (max-width:420px){
-  .hamburger{top:8px;right:8px;}
-  .hamburger span {width: 18px;}
-}
-
-/* Nav actions layout + File Sharing button */
-.nav-actions{display:flex;align-items:center;gap:0.5rem}
-.nav-actions .file-share{
-  display:inline-block;
-  padding:0.45rem 0.8rem;
-  border-radius:10px;
-  border:1px solid rgba(0,0,0,0.08);
-  background:transparent;
+.logo a{
   color:var(--fg);
   text-decoration:none;
-  font-weight:600;
-  font-size:0.95rem;
-}
-.nav-actions .file-share:hover{
-  background:var(--accent);
-  color:#fff;
-  border-color:var(--accent);
-}
-body.dark-mode .nav-actions .file-share{border-color:rgba(255,255,255,0.08);}
-
-/* header layout for smaller screens — stays inline (you can add hamburger later) */
-@media (max-width:720px){
-  .logo{font-size:0.98rem;}
-  nav ul{gap:.8rem;font-size:.95rem;}
 }
 
-/* --------- HERO (full-screen, centered) --------- */
+/* --------- Hero (STICKY – FIXED ARCHITECTURE) --------- */
 .hero{
+  position:sticky;
+  top:0;
+  height:100vh;
   min-height:100vh;
   display:grid;
   place-items:center;
   text-align:center;
-  padding:0;
-  margin:0;
-  width:100%;
-  position:sticky; /* keep hero static on screen */
-  top:0;
-  left:0;
-  height:100vh;
   overflow:hidden;
-  background-color:#d1c1c1;
-  background-size:cover;
-  background-position:center;
-  background-repeat:no-repeat;
-  z-index:0; /* place hero behind page content so sections overlap it */
+  background:#d1c1c1;
+  z-index:1;
 }
 
 .hero::before{
-  content:'';
+  content:"";
   position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(110, 84, 84, 0.3);
-  z-index:-1; /* keep overlay with the hero behind content */
+  inset:0;
+  background:rgba(0,0,0,0.3);
 }
 
-/* Responsive image element used as hero background for better crop control */
 .hero-bg{
   position:absolute;
-  inset:0; /* top:0; right:0; bottom:0; left:0; */
+  inset:0;
   width:100%;
   height:100%;
-  object-fit:cover; /* preserves aspect ratio and crops */
-  object-position:center center; /* focal point */
-  z-index:0;
-  pointer-events:none; /* decorative only */
-  user-select:none;
-  /* ensure image scales with viewport width */
-  min-width:100wh;
-  min-height:100vh;
+  object-fit:cover;
+  z-index:-1;
 }
-
-/* Adjust focal area for narrower screens where top part is more important */
-@media (max-width: 980px){
-  .hero-bg{ object-position: center 30%; }
-  .hero{ min-height:80vh; }
-  /* hero is fixed; don't offset inner container */
-  .hero .container{margin-top:0;}
-}
-
-/* Very small screens: favor top of the image and reduce hero height */
-@media (max-width: 520px){
-  .hero-bg{ object-position: center 20%; }
-  .hero{ min-height:100vh;height:100vh; }
-  /* hero is fixed; don't offset inner container */
-  .hero .container{margin:0;padding:1rem var(--gutter);} 
-  .hero .hero-inner.container{padding:1rem var(--gutter);} 
-}
-
-
-
-.hero .container{display:contents;}
 
 .hero-content{
-  display:flex;
-  flex-direction:column;
-  gap:0.5rem;
-  align-items:center;
-  justify-content:center;
+  position:relative;
+  z-index:2;
   padding:1rem var(--gutter);
+}
+
+.hero h1{
+  font-size:clamp(3.5rem,10vw,8rem);
   margin:0;
+  font-weight:500;
+}
+
+.hero p{
+  max-width:50ch;
+  margin:1rem auto 0;
+  font-size:clamp(1rem,2vw,1.25rem);
+}
+
+/* Mobile hero adjustment */
+@media (max-width:768px){
+  .hero{
+    height:85vh;
+    min-height:85vh;
+  }
+}
+
+/* --------- Sections --------- */
+.section{
+  padding:4rem var(--gutter);
+  background:#000;
+  color:#fff;
+  position:relative;
   z-index:2;
 }
 
-/* Ensure page content starts below the fixed hero so the hero is visible initially
-  but sections will overlap the hero when scrolled. Adjust responsively. */
-
-.hero h1{font-size:clamp(7rem,15vw,10rem);margin:0;padding:0;font-weight:500;line-height:1.02;color:#000;text-shadow:none;}
-.hero h2{font-size:clamp(1rem,4vw,2rem);margin:0.25rem 0 0;padding:0;font-weight:400;color:#000;text-shadow:none;}
-.hero p{margin:1rem 0 0;font-size:clamp(1rem,2.2vw,1.25rem);color:#502626;max-width:48ch;opacity:.95;text-shadow:0 1px 4px rgba(0,0,0,0.3);}
-
-.cta-button{
-  display:inline-block;margin-top:1.1rem;padding:.7rem 1.8rem;border-radius:var(--radius-pill);
-  background:var(--accent);color:#fff;text-decoration:none;font-weight:600;box-shadow:none;transform:translateZ(0);
+.section h2{
+  margin:0 0 1.25rem;
+  text-align:center;
+  font-size:clamp(1.4rem,3vw,2.2rem);
 }
-.cta-button:hover{transform:translateY(-3px);}
 
-/* Button styles for hero CTA */
-.hero .hero-ctas{
+.section p.muted{
+  color:#bbb;
+}
+
+/* Portfolio header tightening */
+.portfolio-header.section{
+  padding-top:2rem;
+  padding-bottom:2.5rem;
+}
+
+/* --------- Cards --------- */
+.cards,
+.project-gallery{
   display:flex;
-  gap:1rem;
   flex-wrap:wrap;
+  gap:1.5rem;
   justify-content:center;
-  align-items:center;
-  margin-top:1rem;
 }
-.hero .btn{
-  display:inline-block;margin-top:0.5rem;margin-right:0.5rem;padding:0.7rem 1.5rem;border-radius:var(--radius-pill);
-  text-decoration:none;font-weight:600;transform:translateZ(0);border:none;cursor:pointer;font-size:0.95rem;
-}
-.hero .btn.primary{
-  background:var(--accent);color:#fff;
-}
-.hero .btn.primary:hover{transform:translateY(-3px);}
-.hero .btn.ghost{
-  background:rgba(255,255,255,0.2);color:#fff;border:1.5px solid rgba(255,255,255,0.5);
-}
-.hero .btn.ghost:hover{background:rgba(255,255,255,0.3);border-color:#fff;}
 
-/* --------- Section wrapper & headings --------- */
-.section{padding:4rem var(--gutter);width:100%;background:#000 !important;color:#fff;position:relative;z-index:2;}
-/* Ensure inner containers don't introduce transparency */
-.section .container{background:transparent;padding:0}
-.section .container{padding:0;}
-.section h2{text-align:center;margin:0 0 1.25rem;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;color:#fff;}
-.section p.muted{color:#bbb;}
-
-/* --------- Cards & Projects (responsive, simple) --------- */
-.cards, .project-gallery{display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:center;align-items:flex-start;width:100%;}
 .card{
-  flex:1 1 240px;min-width:220px;max-width:360px;
-  background:#1a1a1a;padding:1.25rem;border-radius:var(--radius-lg);
-  box-shadow:var(--shadow-sm);text-align:center;
-  transform:translateZ(0);
+  background:#1a1a1a;
+  padding:1.25rem;
+  border-radius:var(--radius-lg);
+  max-width:360px;
   color:#fff;
 }
-.card h3{margin:0 0 .5rem;font-size:1.05rem;color:#fff;}
-.card p{margin:0;color:#bbb;font-size:.95rem;line-height:1.4;}
 
-/* project item */
-.project-item{flex:1 1 340px;min-width:260px;max-width:420px;}
-.project-item img{border-radius:14px;display:block;}
+.card p{
+  color:#bbb;
+  font-size:.95rem;
+}
 
-/* iframe wrapper */
-.frame-wrap{border-radius:12px;overflow:hidden;margin-top:1rem;border:1px solid rgba(0,0,0,0.04)}
-.frame-wrap iframe{width:100%;height:850px;border:0;display:block}
+/* --------- Buttons --------- */
+.btn{
+  display:inline-block;
+  padding:.7rem 1.6rem;
+  border-radius:var(--radius-pill);
+  font-weight:600;
+  text-decoration:none;
+  cursor:pointer;
+}
 
-/* Forms */
-.form{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:0.85rem}
-.form input,.form textarea{padding:0.85rem;border-radius:10px;border:1px solid #444;background:#2a2a2a;color:#fff;outline:none}
-.form textarea{min-height:160px}
+.btn.primary{
+  background:var(--accent);
+  color:#fff;
+}
 
-/* submission status */
-#submission-status{margin-top:.5rem;text-align:center;color:var(--accent);font-style:italic;}
+.btn.ghost{
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,.5);
+  color:#fff;
+}
 
 /* --------- Footer --------- */
-footer{padding:2rem var(--gutter);text-align:center;background:var(--section);font-size:.9rem;color:var(--muted);}
-
-/* WhatsApp and email button: center and limit size */
-.whatsapp-wrap{display:flex;justify-content:center}
-.whatsapp-btn{display:block;max-width:140px;width:140px;height:auto;border-radius:6px}
-
-@media (max-width:520px){
-  .whatsapp-btn{max-width:100px;width:100px}
+footer{
+  padding:2rem var(--gutter);
+  background:var(--section);
+  color:var(--muted);
+  text-align:center;
+  font-size:.9rem;
 }
 
-/* --------- Small screens tweaks --------- */
-@media (max-width:880px){
-  .cards,.project-gallery{gap:1rem;}
-  header nav ul{display:none;} /* only hide header nav on tiny widths; keep sidebar nav visible */
-  .hero{padding:2.2rem var(--gutter);}
+/* --------- Sidebar --------- */
+.sidebar{
+  position:fixed;
+  inset:0;
+  background:var(--bg);
+  z-index:1400;
+  transform:translateX(-100%);
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+  padding:2rem var(--gutter);
 }
 
-/* --------- Very small screens --------- */
-@media (max-width:520px){
-  header.apple-style-header{padding:.6rem 1rem;}
-  header nav ul{display:none;} /* quick fallback for tiny widths; add hamburger later */
-  .hero{padding:1.6rem var(--gutter);min-height:80vh;}
-  .hero h1{font-size:clamp(3rem,8vw,4rem);}
-  .section{padding:2.2rem var(--gutter);}
+.sidebar.open{
+  transform:translateX(0);
 }
 
-/* --------- Accessibility helpers (focus visible) --------- */
-:focus{outline:none;}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid color-mix(in srgb, var(--accent) 35%, transparent);outline-offset:3px;border-radius:8px;}
+.sidebar-nav a{
+  font-size:clamp(1.6rem,5vw,3rem);
+  display:block;
+  text-decoration:none;
+  color:var(--fg);
+  margin:1rem 0;
+}
 
-/* --------- Small utilities (kept minimal) --------- */
+/* --------- Hamburger --------- */
+.hamburger{
+  position:fixed;
+  top:12px;
+  right:12px;
+  z-index:1300;
+  background:none;
+  border:none;
+  cursor:pointer;
+}
+
+.hamburger span{
+  width:20px;
+  height:2px;
+  background:var(--fg);
+  display:block;
+  margin:4px 0;
+  transition:.3s;
+}
+
+/* --------- Accessibility --------- */
+a:focus-visible,
+button:focus-visible{
+  outline:3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  outline-offset:3px;
+}
+
+/* --------- Utilities --------- */
 .text-center{text-align:center;}
 .hide{display:none !important;}
 .flex{display:flex;}
 .grid{display:grid;}
-
-/* ------------------ DROPDOWN (UNIVERSAL) ------------------ */
-
-nav ul li {
-  position: relative;
-}
-
-/* enlarge hover area below the trigger so submenu doesn't collapse */
-.dropdown{padding-bottom:12px;}
-
-/* keep dropdown open for keyboard users while focused */
-.dropdown:focus-within .dropdown-menu{display:block;}
-
-.dropdown > a::after {
-  content: " ▾";
-  font-size: 1.2rem;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  transform-origin: top center;
-  min-width: 180px;
-  background: var(--header-bg);
-  backdrop-filter: blur(8px);
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  list-style: none;
-  padding: 0.5rem 0;
-  display: none;
-  z-index: 1000;
-  transition: opacity 180ms var(--ease), transform 180ms var(--ease);
-}
-
-.dropdown-menu li a {
-  display: block;
-  padding: 0.6rem 1rem;
-  color: var(--fg);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.dropdown-menu li a:hover {
-  background: rgba(0,0,0,0.06);
-  color: var(--accent);
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-/* Mobile dropdown visibility in sidebar */
-.sidebar .dropdown-menu {
-  position: static;
-  transform: none;
-  background: transparent;
-  backdrop-filter: none;
-  box-shadow: none;
-  border-radius: 0;
-  padding: 0.5rem 0;
-  display: none;
-  min-width: auto;
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: all 300ms ease;
-}
-
-.sidebar .dropdown.open .dropdown-menu {
-  display: block;
-  opacity: 1;
-  max-height: 500px;
-}
-
-.sidebar .dropdown-menu li a {
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  color: var(--fg);
-  opacity: 1;
-  display: block;
-}
-
-.sidebar-actions {
-  position: absolute;
-  bottom: 32px;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-}
-
-.sidebar-actions button,
-.sidebar-actions a {
-  color: var(--fg);
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-  
-.side-nav-links li a {
-  display: block;
-  padding: 0.9rem 1.25rem;
-  color: var(--fg);
-  text-decoration: none;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-.side-nav-links li a:hover {
-  background: rgba(0,0,0,0.06);
-  color: var(--accent);
-}
-
-body.dark-mode .side-nav-links li a {
-  border-bottom-color: rgba(255,255,255,0.08);
-}
-
-/* ===============================
-   FULLSCREEN MENU
-================================ */
-
-.sidebar {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  backdrop-filter: blur(14px);
-  z-index: 1400;
-
-  /* ensure padding and box-sizing so content never overflows horizontally */
-  box-sizing: border-box;
-  padding: 2rem var(--gutter);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  transform: translateX(-100%);
-  transition: transform 600ms cubic-bezier(.22,1,.36,1);
-}
-
-/* Ensure sidebar can scroll if content is larger than viewport */
-.sidebar{overflow-y:auto;-webkit-overflow-scrolling:touch}
-
-.sidebar.open {
-  transform: translateX(0);
-}
-
-.sidebar-logo {
-  position: absolute;
-  top: 32px;
-  left: 32px;
-  font-weight: 800;
-  font-size: 1.2rem;
-}
-
-.closebtn {
-  position: absolute;
-  top: 20px;
-  right: 28px;
-  font-size: 2.5rem;
-  text-decoration: none;
-  color: var(--fg);
-}
-
-.sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-}
-
-/* Force vertical stacking for sidebar navigation */
-.sidebar > .sidebar-nav,
-.sidebar nav.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  align-items: stretch;
-  width: 100%;
-  max-width: 520px;
-}
-
-.sidebar .sidebar-nav ul {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.sidebar-nav li{
-  width:100%;
-}
-
-.sidebar-nav a{
-  display:block;
-  width:100%;
-  padding:0.6rem 1rem;
-  text-align:center;
-}
-
-/* make sure nav uses full width inside the sidebar and wraps long items */
-.sidebar-nav{width:100%;max-width:100%;box-sizing:border-box;padding:0}
-.sidebar-nav a{white-space:normal;word-break:break-word}
-
-/* Defensive: ensure nav list is visible and stacked properly */
-.sidebar-nav{z-index:1401;width:100%}
-
-.sidebar-nav li {
-  margin: 1.2rem 0;
-}
-
-.sidebar-nav a {
-  font-size: clamp(2rem, 5vw, 4rem);
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--fg) !important;
-  opacity: 1; /* ensure visible by default; animated on open if needed */
-  transform: none;
-  transition: all 300ms ease;
-  display: block;
-}
-
-/* small screens: reduce sidebar link size so menu fits in viewport */
-@media (max-width:520px){
-  .sidebar-nav a{font-size:clamp(1.4rem,4.5vw,2.4rem)}
-  .sidebar{padding:1rem}
-}
-
-/* Force visibility in case of overrides */
-.sidebar .sidebar-nav a, .sidebar .sidebar-nav li, .sidebar .sidebar-nav ul{visibility:visible!important;opacity:1!important}
-
-/* Stagger animation */
-.sidebar.open .sidebar-nav a {
-  opacity: 1 !important;
-  transform: translateY(0);
-}
-
-/* Ensure all sidebar content visible when open */
-.sidebar.open {
-  color: var(--fg);
-}
-
-.sidebar.open .sidebar-nav a,
-.sidebar.open .dropdown-menu li a {
-  opacity: 1 !important;
-  color: inherit !important;
-}
-
-.sidebar.open .sidebar-nav li:nth-child(1) a { transition-delay: .15s; }
-.sidebar.open .sidebar-nav li:nth-child(2) a { transition-delay: .25s; }
-.sidebar.open .sidebar-nav li:nth-child(3) a { transition-delay: .35s; }
-.sidebar.open .sidebar-nav li:nth-child(4) a { transition-delay: .45s; }
-
-
-/* --- Mobile dropdown (click-to-open) --- */
-@media (max-width: 520px){
-  .hero-bg{ object-position: center 20%; }
-  .hero{ min-height:60vh; }
-  /* mobile: smaller offset so content fits above fold */
-  .hero .container{margin-top:280px;}
-  .hero .hero-inner.container{padding:2rem var(--gutter);}
-}
-/* --- Mobile side menu adjustments --- */
-  @media (max-width: 400px) {
-    
-
-    .side-nav-links li a {
-      display: block;
-      padding: 0.9rem 1.25rem;
-      color: var(--fg);
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-
-    .side-nav-links li a:hover {
-      background: rgba(0,0,0,0.06);
-      color: var(--accent);
-    }
-
-    body.dark-mode .side-nav-links li a {
-      border-bottom-color: rgba(255,255,255,0.08);
-    }
-  }
-
-
-/* --------- Browser Compatibility Note ---------
-  • Scroll-driven animations (animation-timeline: view()) require browser support.
-  • Fallback: animation will still trigger on page load for unsupported browsers.
-  • For better support, consider using Intersection Observer API as fallback.
-  ------------------------------------------------------ */
-
-/* --------- Performance note (comment for devs) ---------
-  • Avoid heavy box-shadows and large background images.
-  • If you add hero background images, use a <picture> with lazy loading or CSS with media queries and small, optimized images (.webp).
-  • For animations, prefer transform & opacity only.
-  • Consider preloading critical webfont with <link rel="preload"> and use font-display:swap in font-face.
-  ------------------------------------------------------ */
