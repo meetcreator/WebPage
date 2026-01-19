@@ -32,12 +32,6 @@ body{
   display:grid;
   place-items:center;
   background:#d6c4c4;
-  background:linear-gradient(
-    180deg,
-    #0f0f10 0%,
-    #141416 60%,
-    #0f0f10 100%
-  );
 }
 .hero-content h1{
   font-size:clamp(3rem,7vw,5rem);
