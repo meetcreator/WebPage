@@ -32,7 +32,7 @@
 </aside>
 
 <!-- ================= HAMBURGER ================= -->
-<button id="hamburger" class="hamburger" aria-label="Open menu" onclick="openNav()">
+<button class="hamburger" aria-label="Open menu" onclick="openNav()">
   <span></span><span></span><span></span>
 </button>
 
@@ -47,8 +47,8 @@
     </div>
   </section>
 
-  <!-- ===== FILTERS ===== -->
-  <section class="filter-section container">
+  <!-- ===== FILTER BUTTONS ===== -->
+  <section class="container">
     <div class="filter-buttons">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="web-design">Web Design</button>
@@ -62,22 +62,105 @@
   <section class="section">
     <div id="portfolioGrid" class="portfolio-grid container">
 
-      <!-- Card -->
+      <!-- Creative -->
       <article class="portfolio-card" data-category="creative">
         <img src="hand.jpeg" alt="Hand Gesture 3D Control">
-        <span class="category">Creative</span>
-        <h3>Hand Gesture 3D Control</h3>
-        <p>Interactive 3D experience using MediaPipe & Three.js.</p>
-        <a href="hand/handGesture.html">View Project →</a>
+        <div class="portfolio-card-content">
+          <span class="category">Creative</span>
+          <h3>Hand Gesture 3D Control</h3>
+          <p>Interactive 3D experience controlled by hand gestures using MediaPipe and Three.js.</p>
+          <a href="hand/handGesture.html">View Project →</a>
+        </div>
       </article>
 
-      <!-- Duplicate cards below as needed -->
-      <!-- Keep same structure -->
+      <!-- Web Design -->
+      <article class="portfolio-card" data-category="web-design">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EModern Landing%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">Web Design</span>
+          <h3>Modern Landing Page</h3>
+          <p>Minimal landing with smooth animations and performance optimizations.</p>
+          <a href="WebDesigns/Interact.html">View Project →</a>
+        </div>
+      </article>
+
+      <article class="portfolio-card" data-category="web-design">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EDashboard UI%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">Web Design</span>
+          <h3>Analytics Dashboard</h3>
+          <p>Data-driven dashboard with intuitive visualizations and responsive design.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
+
+      <!-- Web Dev -->
+      <article class="portfolio-card" data-category="web-dev">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EE-commerce%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">Web Dev</span>
+          <h3>E-commerce Platform</h3>
+          <p>Full-stack e-commerce solution with payments and admin dashboard.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
+
+      <article class="portfolio-card" data-category="web-dev">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EReal-time Chat%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">Web Dev</span>
+          <h3>Real-time Chat App</h3>
+          <p>WebSocket-based messaging platform with authentication.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
+
+      <!-- App Dev -->
+      <article class="portfolio-card" data-category="app-dev">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EMobile App%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">App Dev</span>
+          <h3>Mobile Application</h3>
+          <p>Cross-platform app with offline support.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
+
+      <article class="portfolio-card" data-category="app-dev">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EFitness Tracker%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">App Dev</span>
+          <h3>Fitness Tracker App</h3>
+          <p>Health tracking with analytics and social sharing.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
+
+      <!-- Creative -->
+      <article class="portfolio-card" data-category="creative">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EBrand Identity%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">Creative</span>
+          <h3>Brand Identity Design</h3>
+          <p>Logo, palette, and brand guidelines.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
+
+      <article class="portfolio-card" data-category="creative">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EMotion Graphics%3C/text%3E%3C/svg%3E">
+        <div class="portfolio-card-content">
+          <span class="category">Creative</span>
+          <h3>Motion Graphics</h3>
+          <p>Animated explainers and digital motion assets.</p>
+          <a href="#">View Project →</a>
+        </div>
+      </article>
 
     </div>
   </section>
 
-  <!-- ===== BACK BUTTON ===== -->
+  <!-- BACK -->
   <div class="container text-center" style="padding:2rem 0">
     <a href="index.html" class="btn ghost">← Back to Home</a>
   </div>
@@ -87,34 +170,25 @@
 <!-- ================= FOOTER ================= -->
 <footer class="section">
   <div class="container text-center">
-    <p><strong>Contact me</strong></p>
+    <p><strong>Contact</strong></p>
     <p>Email: <a href="mailto:404notfoundany@gmail.com">404notfoundany@gmail.com</a></p>
     <p>WhatsApp: <a href="tel:+919726120903">+91 97261 20903</a></p>
-    <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Drumil</p>
   </div>
 </footer>
 
 <!-- ================= SCRIPTS ================= -->
 <script>
   const sidebar = document.getElementById("sidebar");
+  function openNav(){ sidebar.classList.add("open"); }
+  function closeNav(){ sidebar.classList.remove("open"); }
 
-  function openNav() {
-    sidebar.classList.add("open");
-    document.body.classList.add("menu-open");
-    sidebar.setAttribute("aria-hidden", "false");
-  }
-
-  function closeNav() {
-    sidebar.classList.remove("open");
-    document.body.classList.remove("menu-open");
-    sidebar.setAttribute("aria-hidden", "true");
-  }
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeNav();
+  document.addEventListener("keydown", e=>{
+    if(e.key==="Escape") closeNav();
   });
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
 </script>
 
 <script src="js/portfolio.js" type="module"></script>
