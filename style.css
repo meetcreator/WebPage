@@ -228,7 +228,7 @@ body.dark-mode .nav-actions .file-share{border-color:rgba(255,255,255,0.08);}
   padding:0;
   margin:0;
   width:100%;
-  position:fixed; /* keep hero static on screen */
+  position:sticky; /* keep hero static on screen */
   top:0;
   left:0;
   height:100vh;
