@@ -2,12 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Security-Policy"
-        content="frame-ancestors 'self' https://docs.google.com;
-                 img-src 'self' https: data:;
-                 script-src 'self' 'unsafe-inline';
-                 style-src 'self' 'unsafe-inline'">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Drumil Patel — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -15,40 +10,43 @@
 <body class="dark-mode">
 
 <!-- ================= SIDEBAR ================= -->
-<aside id="sidebar" class="sidebar" aria-hidden="true">
-  <button class="closebtn" onclick="closeNav()" aria-label="Close menu">×</button>
+<div id="sidebar" class="sidebar" aria-hidden="true">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
 
-  <nav class="sidebar-nav" aria-label="Main Navigation">
+  <nav class="sidebar-nav">
     <a href="index.html">Home</a>
+    <a href="index.html#about">About</a>
     <a href="service.html">Services</a>
     <a href="portfolio.html">Portfolio</a>
-    <a href="#contact">Contact</a>
+    <a href="index.html#contact">Contact</a>
   </nav>
 
   <div class="sidebar-actions">
-    <button id="theme-icon" class="theme-toggle" aria-label="Toggle theme">🌙</button>
+    <button id="theme-icon" class="theme-toggle">☀️</button>
     <a href="client/index.html" class="file-share">File Sharing</a>
   </div>
-</aside>
+</div>
 
 <!-- ================= HAMBURGER ================= -->
-<button class="hamburger" aria-label="Open menu" onclick="openNav()">
+<button id="hamburger" class="hamburger" onclick="openNav()">
   <span></span><span></span><span></span>
 </button>
 
 <!-- ================= MAIN ================= -->
 <main>
 
-  <!-- ===== PORTFOLIO HEADER ===== -->
-  <section class="portfolio-header section">
+  <!-- ===== HEADER / HERO ===== -->
+  <section class="portfolio-hero">
     <div class="container text-center">
       <h1>My Work</h1>
-      <p class="muted">A showcase of projects, case studies, and selected works.</p>
+      <p class="muted">
+        Selected projects across web development, applications, creative technology, and automation.
+      </p>
     </div>
   </section>
 
-  <!-- ===== FILTER BUTTONS ===== -->
-  <section class="container">
+  <!-- ===== FILTERS ===== -->
+  <section class="filter-section">
     <div class="filter-buttons">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="web-design">Web Design</button>
@@ -62,136 +60,129 @@
   <section class="section">
     <div id="portfolioGrid" class="portfolio-grid container">
 
-      <!-- Creative -->
-      <article class="portfolio-card" data-category="creative">
-        <img src="hand.jpeg" alt="Hand Gesture 3D Control">
+      <!-- CARD -->
+      <div class="portfolio-card" data-category="creative">
+        <div class="portfolio-card-image">
+          <img src="hand.jpeg" alt="">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Creative</span>
           <h3>Hand Gesture 3D Control</h3>
-          <p>Interactive 3D experience controlled by hand gestures using MediaPipe and Three.js.</p>
-          <a href="hand/handGesture.html">View Project →</a>
+          <p>3D interaction system using MediaPipe and Three.js with real-time hand tracking.</p>
+          <a href="hand/handGesture.html" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
+      <!-- DUPLICATE CARDS BELOW (ALL KEPT) -->
       <!-- Web Design -->
-      <article class="portfolio-card" data-category="web-design">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EModern Landing%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="web-design">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Landing+Page">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Web Design</span>
           <h3>Modern Landing Page</h3>
-          <p>Minimal landing with smooth animations and performance optimizations.</p>
-          <a href="WebDesigns/Interact.html">View Project →</a>
+          <p>High-performance landing page with smooth animations and UX-focused layout.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
-      <article class="portfolio-card" data-category="web-design">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EDashboard UI%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="web-design">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Dashboard">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Web Design</span>
           <h3>Analytics Dashboard</h3>
-          <p>Data-driven dashboard with intuitive visualizations and responsive design.</p>
-          <a href="#">View Project →</a>
+          <p>Responsive dashboard with structured data visualization and clarity.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
       <!-- Web Dev -->
-      <article class="portfolio-card" data-category="web-dev">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EE-commerce%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="web-dev">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Ecommerce">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Web Dev</span>
           <h3>E-commerce Platform</h3>
-          <p>Full-stack e-commerce solution with payments and admin dashboard.</p>
-          <a href="#">View Project →</a>
+          <p>Full-stack solution with admin panel, payments, and inventory logic.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
-      <article class="portfolio-card" data-category="web-dev">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EReal-time Chat%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="web-dev">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Chat+App">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Web Dev</span>
           <h3>Real-time Chat App</h3>
-          <p>WebSocket-based messaging platform with authentication.</p>
-          <a href="#">View Project →</a>
+          <p>WebSocket-based chat platform with authentication and notifications.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
       <!-- App Dev -->
-      <article class="portfolio-card" data-category="app-dev">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EMobile App%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="app-dev">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Mobile+App">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">App Dev</span>
           <h3>Mobile Application</h3>
-          <p>Cross-platform app with offline support.</p>
-          <a href="#">View Project →</a>
+          <p>Cross-platform mobile app with offline support and clean UI.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
-      <article class="portfolio-card" data-category="app-dev">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EFitness Tracker%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="app-dev">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Fitness+Tracker">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">App Dev</span>
-          <h3>Fitness Tracker App</h3>
-          <p>Health tracking with analytics and social sharing.</p>
-          <a href="#">View Project →</a>
+          <h3>Fitness Tracker</h3>
+          <p>Health analytics app with tracking, charts, and performance metrics.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
       <!-- Creative -->
-      <article class="portfolio-card" data-category="creative">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EBrand Identity%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="creative">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Branding">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Creative</span>
-          <h3>Brand Identity Design</h3>
-          <p>Logo, palette, and brand guidelines.</p>
-          <a href="#">View Project →</a>
+          <h3>Brand Identity</h3>
+          <p>Logo system, color language, and brand guidelines.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
-      <article class="portfolio-card" data-category="creative">
-        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' fill='%23666' font-size='32' dy='.3em' text-anchor='middle'%3EMotion Graphics%3C/text%3E%3C/svg%3E">
+      <div class="portfolio-card" data-category="creative">
+        <div class="portfolio-card-image">
+          <img src="https://dummyimage.com/800x450/222/666&text=Motion+Design">
+        </div>
         <div class="portfolio-card-content">
           <span class="category">Creative</span>
           <h3>Motion Graphics</h3>
-          <p>Animated explainers and digital motion assets.</p>
-          <a href="#">View Project →</a>
+          <p>Animated explainers and motion-driven storytelling.</p>
+          <a href="#" class="portfolio-card-link">View Project →</a>
         </div>
-      </article>
+      </div>
 
     </div>
   </section>
 
-  <!-- BACK -->
-  <div class="container text-center" style="padding:2rem 0">
-    <a href="index.html" class="btn ghost">← Back to Home</a>
-  </div>
-
 </main>
 
-<!-- ================= FOOTER ================= -->
-<footer class="section">
-  <div class="container text-center">
-    <p><strong>Contact</strong></p>
-    <p>Email: <a href="mailto:404notfoundany@gmail.com">404notfoundany@gmail.com</a></p>
-    <p>WhatsApp: <a href="tel:+919726120903">+91 97261 20903</a></p>
-    <p>&copy; <span id="year"></span> Drumil</p>
-  </div>
+<footer class="footer">
+  <p>© <span id="year"></span> Drumil Patel</p>
 </footer>
 
-<!-- ================= SCRIPTS ================= -->
-<script>
-  const sidebar = document.getElementById("sidebar");
-  function openNav(){ sidebar.classList.add("open"); }
-  function closeNav(){ sidebar.classList.remove("open"); }
-
-  document.addEventListener("keydown", e=>{
-    if(e.key==="Escape") closeNav();
-  });
-
-  document.getElementById("year").textContent =
-    new Date().getFullYear();
-</script>
-
-<script src="js/portfolio.js" type="module"></script>
-
+<script src="portfolio.js"></script>
 </body>
 </html>
