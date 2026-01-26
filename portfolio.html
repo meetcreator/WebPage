@@ -3,186 +3,358 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Drumil Patel — Portfolio</title>
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://docs.google.com; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'" />
+  <title>Drumil — Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="portfolio.css" />
 </head>
-
 <body class="dark-mode">
+  <!-- PREMIUM HEADER -->
+  <header class="premium-header" role="banner">
+    <div class="nav-container container">
+      <div class="logo"><a href="index.html">DRUMIL PATEL</a></div>
 
-<!-- ================= SIDEBAR ================= -->
-<div id="sidebar" class="sidebar" aria-hidden="true">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+      <nav class="nav-desktop" role="navigation" aria-label="Main">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <a href="index.html">About</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="index.html#about">Overview</a></li>
+              <li><a href="index.html#skills">Skills</a></li>
+              <li><a href="index.html#experience">Experience</a></li>
+            </ul>
+          </li>
 
-  <nav class="sidebar-nav">
-    <a href="index.html">Home</a>
-    <a href="index.html#about">About</a>
-    <a href="service.html">Services</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
+          <li class="dropdown">
+            <a href="service.html">Services</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="service.html#services">All Services</a></li>
+              <li><a href="service.html#next-project">Suggest Ideas</a></li>
+              <li><a href="service.html#contact">Contact</a></li>
+            </ul>
+          </li>
 
-  <div class="sidebar-actions">
-    <button id="theme-icon" class="theme-toggle">☀️</button>
-    <a href="client/index.html" class="file-share">File Sharing</a>
+          <li class="dropdown">
+            <a href="portfolio.html">Portfolio</a>
+            <ul class="dropdown-menu" aria-hidden="true">
+              <li><a href="portfolio.html#Overview">Overview</a></li>
+              <li><a href="portfolio.html#WebDev">Web Dev</a></li>
+              <li><a href="portfolio.html#Quant">Quant</a></li>
+              <li><a href="portfolio.html#Auto">Automation/AI</a></li>
+            </ul>
+          </li>
+
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="client/index.html" class="file-share" aria-label="Open file sharing">File Sharing</a>
+        <button id="theme-icon" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <button id="hamburger" class="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SIDE MENU -->
+  <div id="side-menu" class="side-menu open" aria-hidden="false">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <nav class="side-nav" role="navigation" aria-label="Main">
+      <ul class="side-nav-links">
+        <li><a href="index.html">About</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
   </div>
-</div>
 
-<!-- ================= HAMBURGER ================= -->
-<button id="hamburger" class="hamburger" onclick="openNav()">
-  <span></span><span></span><span></span>
-</button>
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- PORTFOLIO HEADER -->
+    <section class="portfolio-header section">
+      <div class="container">
+        <h1>My Work</h1>
+        <p class="muted">A showcase of projects, case studies, and selected works.</p>
+      </div>
+    </section>
 
-<!-- ================= MAIN ================= -->
-<main>
+    <!-- FILTER BUTTONS -->
+    <div class="filter-section container">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="web-design">Web Design</button>
+        <button class="filter-btn" data-filter="web-dev">Web Dev</button>
+        <button class="filter-btn" data-filter="app-dev">App Dev</button>
+        <button class="filter-btn" data-filter="creative">Creative</button>
+      </div>
+    </div>
 
-  <!-- ===== HEADER / HERO ===== -->
-  <section class="portfolio-hero">
+    <!-- PORTFOLIO GRID -->
+    <section class="section">
+      <div id="portfolioGrid" class="portfolio-grid container">
+        
+        <!-- Hand Gesture Control -->
+        <div class="portfolio-card" data-category="creative" data-video="">
+          <div class="portfolio-card-image">
+            <img src="hand.jpeg" alt="Hand Gesture 3D Control">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Creative</span>
+            <h3>Hand Gesture 3D Control</h3>
+            <p>Interactive 3D experience controlled by hand gestures using MediaPipe and Three.js.</p>
+            <a href="hand/handGesture.html" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- Web Design Card 1 -->
+        <div class="portfolio-card" data-category="web-design" data-video="https://www.w3schools.com/html/mov_bbb.mp4">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EModern Landing%3C/text%3E%3C/svg%3E" alt="Modern Landing Page">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Web Design</span>
+            <h3>Modern Landing Page</h3>
+            <p>Minimal landing with smooth animations and performance optimizations.</p>
+            <a href="WebDesigns/Interact.html" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- Web Design Card 2 -->
+        <div class="portfolio-card" data-category="web-design" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EDashboard UI%3C/text%3E%3C/svg%3E" alt="Dashboard Design">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Web Design</span>
+            <h3>Analytics Dashboard</h3>
+            <p>Data-driven dashboard with intuitive visualizations and responsive design.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- Web Dev Card 1 -->
+        <div class="portfolio-card" data-category="web-dev" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EE-commerce%3C/text%3E%3C/svg%3E" alt="E-commerce Platform">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Web Dev</span>
+            <h3>E-commerce Platform</h3>
+            <p>Full-stack e-commerce solution with payments and admin dashboard.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- Web Dev Card 2 -->
+        <div class="portfolio-card" data-category="web-dev" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EReal-time Chat%3C/text%3E%3C/svg%3E" alt="Chat Application">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Web Dev</span>
+            <h3>Real-time Chat App</h3>
+            <p>WebSocket-based messaging platform with user authentication and notifications.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- App Dev Card 1 -->
+        <div class="portfolio-card" data-category="app-dev" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EMobile App%3C/text%3E%3C/svg%3E" alt="Mobile App">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">App Dev</span>
+            <h3>Mobile Application</h3>
+            <p>Cross-platform mobile app with intuitive user experience and offline support.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- App Dev Card 2 -->
+        <div class="portfolio-card" data-category="app-dev" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EFitness Tracker%3C/text%3E%3C/svg%3E" alt="Fitness Tracker">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">App Dev</span>
+            <h3>Fitness Tracker App</h3>
+            <p>Health and fitness tracking app with analytics and social sharing features.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- Creative Card 1 -->
+        <div class="portfolio-card" data-category="creative" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EBrand Identity%3C/text%3E%3C/svg%3E" alt="Brand Identity">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Creative</span>
+            <h3>Brand Identity Design</h3>
+            <p>Complete brand identity package including logo, color palette, and guidelines.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+        <!-- Creative Card 2 -->
+        <div class="portfolio-card" data-category="creative" data-video="">
+          <div class="portfolio-card-image">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect fill='%23222' width='800' height='450'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666' font-size='32'%3EMotion Graphics%3C/text%3E%3C/svg%3E" alt="Motion Graphics">
+          </div>
+          <div class="portfolio-card-content">
+            <span class="category">Creative</span>
+            <h3>Motion Graphics</h3>
+            <p>Animated explainer videos and motion design for digital marketing campaigns.</p>
+            <a href="#" class="portfolio-card-link">View Project →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+        </div>
+
+        <!-- Add more cards as needed -->
+      </div>
+    </section>
+
+    <!-- BACK BUTTON -->
+    <div class="container text-center" style="padding: 2rem 0;">
+      <a href="index.html" class="btn ghost">← Back to Home</a>
+    </div>
+  </main>
+
+  <!-- PROJECT PREVIEW OVERLAY -->
+  <div id="projectPreviewOverlay" class="pc-overlay hidden" aria-hidden="true">
+    <video id="pc-bg-video" class="pc-bg-video" autoplay muted loop playsinline></video>
+    <div class="pc-dim"></div>
+    <div class="pc-preview-card" role="dialog" aria-modal="true" aria-labelledby="pcTitle">
+      <button id="pcClose" class="pc-close" aria-label="Close">×</button>
+      <div class="pc-preview-inner">
+        <img id="pcThumb" class="pc-thumb" alt="Project thumbnail" />
+        <div class="pc-preview-text">
+          <h2 id="pcTitle"></h2>
+          <p id="pcDesc"></p>
+        </div>
+      </div>
+    </div>
+    <button id="pcPrev" class="pc-nav pc-prev" aria-label="Previous">‹</button>
+    <button id="pcNext" class="pc-nav pc-next" aria-label="Next">›</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="section footer">
     <div class="container text-center">
-      <h1>My Work</h1>
-      <p class="muted">
-        Selected projects across web development, applications, creative technology, and automation.
-      </p>
+      <div style="margin-bottom: 1rem;">
+        <p><strong>Contact me</strong></p>
+        <p><a href="mailto:your-email@example.com">Email: 404notfoundany@gmail.com</a></p>
+        <p><a href="tel:+1234567890">whatsapp: +91 9726120903 </a></p>
+      </div>
+      <p>&copy; <span id="year"></span> Drumil. All rights reserved.</p>
     </div>
-  </section>
+  </footer>
 
-  <!-- ===== FILTERS ===== -->
-  <section class="filter-section">
-    <div class="filter-buttons">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="web-design">Web Design</button>
-      <button class="filter-btn" data-filter="web-dev">Web Dev</button>
-      <button class="filter-btn" data-filter="app-dev">App Dev</button>
-      <button class="filter-btn" data-filter="creative">Creative</button>
-    </div>
-  </section>
+  <!-- SCRIPTS -->
+  <script src="js/navbar.js"></script>
+  <script src="js/portfolio.js" type="module"></script>
+  <script>
+    // Theme toggle - initialize dark mode by default
+    const themeBtn = document.getElementById("theme-icon");
+    
+    function initTheme() {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light") {
+        document.body.classList.remove("dark-mode");
+        themeBtn.textContent = "🌙";
+      } else {
+        document.body.classList.add("dark-mode");
+        themeBtn.textContent = "☀️";
+      }
+    }
+    
+    // Initialize on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTheme);
+    } else {
+      initTheme();
+    }
+    
+    // Toggle on click
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark-mode");
+      themeBtn.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
 
-  <!-- ===== PORTFOLIO GRID ===== -->
-  <section class="section">
-    <div id="portfolioGrid" class="portfolio-grid container">
+    // Portfolio filter functionality
+    function initPortfolioFilter() {
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const portfolioCards = document.querySelectorAll(".portfolio-card");
 
-      <!-- CARD -->
-      <div class="portfolio-card" data-category="creative">
-        <div class="portfolio-card-image">
-          <img src="hand.jpeg" alt="">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Creative</span>
-          <h3>Hand Gesture 3D Control</h3>
-          <p>3D interaction system using MediaPipe and Three.js with real-time hand tracking.</p>
-          <a href="hand/handGesture.html" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", function() {
+          const filterValue = this.getAttribute("data-filter");
 
-      <!-- DUPLICATE CARDS BELOW (ALL KEPT) -->
-      <!-- Web Design -->
-      <div class="portfolio-card" data-category="web-design">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Landing+Page">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Web Design</span>
-          <h3>Modern Landing Page</h3>
-          <p>High-performance landing page with smooth animations and UX-focused layout.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+          // Update active button
+          filterBtns.forEach(b => b.classList.remove("active"));
+          this.classList.add("active");
 
-      <div class="portfolio-card" data-category="web-design">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Dashboard">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Web Design</span>
-          <h3>Analytics Dashboard</h3>
-          <p>Responsive dashboard with structured data visualization and clarity.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+          // Filter cards
+          portfolioCards.forEach(card => {
+            const cardCategory = card.getAttribute("data-category");
+            
+            if (filterValue === "all" || cardCategory === filterValue) {
+              card.style.opacity = "0";
+              card.style.display = "block";
+              setTimeout(() => {
+                card.style.opacity = "1";
+              }, 10);
+            } else {
+              card.style.opacity = "0";
+              setTimeout(() => {
+                card.style.display = "none";
+              }, 220);
+            }
+          });
+        });
+      });
+    }
 
-      <!-- Web Dev -->
-      <div class="portfolio-card" data-category="web-dev">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Ecommerce">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Web Dev</span>
-          <h3>E-commerce Platform</h3>
-          <p>Full-stack solution with admin panel, payments, and inventory logic.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+    // Initialize filter when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPortfolioFilter);
+    } else {
+      initPortfolioFilter();
+    }
+  </script>
+  <script>
+  const sidebar = document.getElementById("sidebar");
 
-      <div class="portfolio-card" data-category="web-dev">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Chat+App">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Web Dev</span>
-          <h3>Real-time Chat App</h3>
-          <p>WebSocket-based chat platform with authentication and notifications.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+  function openNav() {
+    sidebar.classList.add("open");
+    document.body.classList.add("menu-open");
+    sidebar.setAttribute("aria-hidden", "false");
+  }
 
-      <!-- App Dev -->
-      <div class="portfolio-card" data-category="app-dev">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Mobile+App">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">App Dev</span>
-          <h3>Mobile Application</h3>
-          <p>Cross-platform mobile app with offline support and clean UI.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+  function closeNav() {
+    sidebar.classList.remove("open");
+    document.body.classList.remove("menu-open");
+    sidebar.setAttribute("aria-hidden", "true");
+  }
 
-      <div class="portfolio-card" data-category="app-dev">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Fitness+Tracker">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">App Dev</span>
-          <h3>Fitness Tracker</h3>
-          <p>Health analytics app with tracking, charts, and performance metrics.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+  // Close menu when clicking a link
+  document.querySelectorAll(".sidebar-nav a").forEach(link => {
+    link.addEventListener("click", closeNav);
+  });
 
-      <!-- Creative -->
-      <div class="portfolio-card" data-category="creative">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Branding">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Creative</span>
-          <h3>Brand Identity</h3>
-          <p>Logo system, color language, and brand guidelines.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
+  // ESC key closes menu
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeNav();
+  });
+</script>
 
-      <div class="portfolio-card" data-category="creative">
-        <div class="portfolio-card-image">
-          <img src="https://dummyimage.com/800x450/222/666&text=Motion+Design">
-        </div>
-        <div class="portfolio-card-content">
-          <span class="category">Creative</span>
-          <h3>Motion Graphics</h3>
-          <p>Animated explainers and motion-driven storytelling.</p>
-          <a href="#" class="portfolio-card-link">View Project →</a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <p>© <span id="year"></span> Drumil Patel</p>
-</footer>
-
-<script src="portfolio.js"></script>
 </body>
 </html>
